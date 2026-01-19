@@ -1,0 +1,29 @@
+#pragma once
+
+#if defined (PFM_WIN) && defined(API_GL)
+
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
+// @Pending: Error handling!
+class Win32_GL_Context 
+{
+public:
+    Win32_GL_Context(HWND window_handle);
+    ~Win32_GL_Context();
+
+    Win32_GL_Context(const Win32_GL_Context&) = delete;
+    Win32_GL_Context(Win32_GL_Context&&) = delete;
+
+    fn operator=(const Win32_GL_Context&) -> Win32_GL_Context& = delete;
+    fn operator=(Win32_GL_Context&&) -> Win32_GL_Context& = delete;
+    
+    fn swap_interval(i32 interval) -> void;
+    fn swap_buffers() const -> void;
+
+private:
+    HGLRC m_context = nullptr;
+    HDC m_device = nullptr;
+};
+
+#endif

@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/engine/src",
+                "${workspaceFolder}/game/src"
+            ],
+            "defines": [
+                "PFM_DEBUG",
+                "API_GL",
+                "WIN32",
+                "_WINDOWS",
+                "_UNICODE",
+                "UNICODE"
+            ],
+            "compilerPath": "cl.exe",
+            "intelliSenseMode": "msvc-x64",
+            "forcedInclude": [
+                "${workspaceFolder}/engine/src/engine_pch.h",
+                "${workspaceFolder}/game/src/game_pch.h"
+            ]
+        }
+    ],
+    "version": 4
+}
