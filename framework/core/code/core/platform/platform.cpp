@@ -1,12 +1,12 @@
 #include "platform.h"
 
-#if defined(CFG_DEBUG) && defined(API_GL)
+#if defined(CORE_DEBUG) && defined(CORE_GL)
 
 #include "core/backend/opengl/gl_functions.h"
 
 // @Note: This is not in the GL context because it's platform independent. (I guess)
 
-static  auto APIENTRY _gl_debug_callback(
+static auto APIENTRY _gl_debug_callback(
     GLenum source, 
     GLenum type, 
     GLuint id, 
@@ -16,7 +16,7 @@ static  auto APIENTRY _gl_debug_callback(
     const void* userParam
 ) -> void
 {
-    LOG("[GL DEBUG] %s\n", message);
+    core_log("[GL DEBUG] %s\n", message);
 }
 
 #endif
@@ -54,7 +54,7 @@ namespace Core
         audio_init();
         g_state.is_setup = g_state.window && g_state.input; 
         
-        #if defined(CFG_DEBUG) && defined(API_GL)
+        #if defined(CORE_DEBUG) && defined(CORE_GL)
             glEnable(GL_DEBUG_OUTPUT);
             glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
             glDebugMessageCallback(_gl_debug_callback, nullptr);

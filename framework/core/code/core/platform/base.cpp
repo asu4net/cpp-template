@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#ifdef PFM_WIN
+#ifdef CORE_WIN
 #define WIN32_MEAN_AND_LEAN
 #include <Windows.h>
 #endif
@@ -32,7 +32,7 @@ auto Core::set_working_dir(const std::string& path) -> void
     if (path.empty())
     return;
 
-#if defined (PFM_WIN)
+#if defined (CORE_WIN)
     std::wostringstream conv;
     conv << path.c_str();
     std::wstring working_dir(conv.str());
@@ -51,7 +51,7 @@ auto Core::set_working_dir(const std::string& path) -> void
 
 auto Core::get_time() -> f64
 {
-#if defined(PFM_WIN)
+#if defined(CORE_WIN)
     static LARGE_INTEGER frequency;
     static BOOL initialized = FALSE;
 

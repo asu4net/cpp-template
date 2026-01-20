@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(PFM_WIN)
+#if defined(CORE_WIN)
 #include <Windows.h>
 #endif
 
@@ -88,7 +88,7 @@ inline auto glCompileShaderWithPrefix(std::string_view source, std::string_view 
         GLchar log_buffer[LOG_BUFFER_SIZE];
         GLsizei log_lenght;
         glGetShaderInfoLog(shader, LOG_BUFFER_SIZE, &log_lenght, log_buffer);
-        LOG("Error compiling the program.\n%s", std::string_view(log_buffer, log_lenght).data());
+        core_log("Error compiling the program.\n%s", std::string_view(log_buffer, log_lenght).data());
         return 0u;
     }
 
@@ -99,7 +99,7 @@ inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
 {
     if (source.empty())
     {
-        LOG("Error! The shader source cannot be empty!\n");
+        core_log("Error! The shader source cannot be empty!\n");
         return 0u;
     }
     
@@ -111,7 +111,7 @@ inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
 
     if (vert == 0u)
     {
-        LOG("Error compiling the vertex shader.\n");
+        core_log("Error compiling the vertex shader.\n");
         return 0u;
     }
 
@@ -123,7 +123,7 @@ inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
 
     if (frag == 0u)
     {
-        LOG("Error compiling the fragment shader.\n");
+        core_log("Error compiling the fragment shader.\n");
         return 0u;
     }
     
@@ -148,7 +148,7 @@ inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
         GLchar log_buffer[LOG_BUFFER_SIZE];
         GLsizei log_lenght;
         glGetProgramInfoLog(prog, LOG_BUFFER_SIZE, &log_lenght, log_buffer);
-        LOG("Error linking the program.\n%s", std::string_view(log_buffer, log_lenght).data());
+        core_log("Error linking the program.\n%s", std::string_view(log_buffer, log_lenght).data());
         return 0u;
     }
     

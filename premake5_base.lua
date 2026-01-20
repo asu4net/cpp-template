@@ -1,6 +1,6 @@
 Render_Backend = {
-    D3D11 = "API_D3D11",
-    GL = "API_GL"
+    D3D11 = "CORE_D3D11",
+    GL = "CORE_GL"
 }
 
 --------- GLOBAL VARIABLES ---------
@@ -77,19 +77,19 @@ function config_base()
         runtime  "Debug"
         symbols  "On"
         optimize "Off"
-        defines  "CFG_DEBUG"
+        defines  "CORE_DEBUG"
 
     filter "configurations:release"
         runtime  "Release"
         symbols  "On"
         optimize "On"
-        defines  "CFG_RELEASE"
+        defines  "CORE_RELEASE"
 
     filter "configurations:dist"
         runtime  "Release"
         symbols  "Off"
         optimize "On"
-        defines  "CFG_DIST"
+        defines  "CORE_DIST"
 end
 
 -------------------------------------------------

@@ -26,7 +26,7 @@ Image::Image(std::string_view filename)
 
     stbi_set_flip_vertically_on_load(1);
     stbi_uc* data = stbi_load(filename.data(), &m_width, &m_height, &m_channels, 0);
-    CHECK(data, "Image load failed!\n");
+    core_check(data, "Image load failed!\n");
     m_data = data;
     m_is_owner = true;
 }

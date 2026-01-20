@@ -1,5 +1,5 @@
 auto main(i32 argc, cstring* argv) -> i32
 {
-    LOG("Hellope!\n");
+    core_log("Hellope!\n");
     return 0;
 }

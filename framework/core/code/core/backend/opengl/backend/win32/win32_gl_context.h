@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined (PFM_WIN) && defined(API_GL)
+#if defined (CORE_WIN) && defined(CORE_GL)
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>

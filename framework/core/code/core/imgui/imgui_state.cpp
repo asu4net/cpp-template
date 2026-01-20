@@ -1,6 +1,6 @@
 #include "imgui_state.h"
 
-#if defined(API_GL) && defined(PFM_WIN)
+#if defined(CORE_GL) && defined(CORE_WIN)
 
 #include "core/backend/opengl/backend/win32/win32_gl_imgui.h"
 

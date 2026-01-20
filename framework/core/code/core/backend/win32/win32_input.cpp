@@ -1,13 +1,13 @@
 #include "win32_input.h"
 #include "imgui_impl_win32.h"
 
-static  auto g_input_created = false;
-static  std::vector<Input_Event> g_events;
-static  Key_State::Type g_key_states[Key_Code::Count] = {};
-static  bool g_key_down_table[Key_Code::Count] = {};
-static  Cursor_Mode g_cursor_mode = Cursor_Mode::Default;
+static auto g_input_created = false;
+static std::vector<Input_Event> g_events;
+static Key_State::Type g_key_states[Key_Code::Count] = {};
+static bool g_key_down_table[Key_Code::Count] = {};
+static Cursor_Mode g_cursor_mode = Cursor_Mode::Default;
 
-static  auto from_windows_format(WPARAM wParam) -> Key_Code::Type
+static auto from_windows_format(WPARAM wParam) -> Key_Code::Type
 {
     // *** ASCII KEYS ***
     if (wParam >= '0' && wParam <= '9')
@@ -254,10 +254,10 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
 
 Win32_Input::Win32_Input(const Input_Desc& ds)
 {
-    if (ENSURE(!g_input_created, "We don't support multiple instances for the Input class.\n"))
+    if (core_ensure(!g_input_created, "We don't support multiple instances for the Input class.\n"))
     {
         g_input_created = true;
-        LOG("Win32 Input created!\n");
+        core_log("Win32 Input created!\n");
     }
 }
 
@@ -267,7 +267,7 @@ Win32_Input::~Win32_Input()
     {
         g_input_created = false;
     }
-    LOG("Win32 Input destroyed!\n");
+    core_log("Win32 Input destroyed!\n");
 }
 
 auto Win32_Input::poll_events() const -> void

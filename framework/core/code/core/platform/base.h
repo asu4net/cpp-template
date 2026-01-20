@@ -18,7 +18,7 @@ using f64 = double;
 
 #ifdef _WIN32
 	#ifdef _WIN64
-        #define PFM_WIN
+        #define CORE_WIN
 	#else
         #error "x86 Builds are not supported!"
     #endif
@@ -26,15 +26,15 @@ using f64 = double;
     #error "Unsupported OS!"
 #endif
 
-#if defined (CFG_DEBUG) || defined(CFG_RELEASE)
-    #if defined(PFM_WIN)
-        #define DEBUGBREAK() __debugbreak()
+#if defined (CORE_DEBUG) || defined(CORE_RELEASE)
+    #if defined(CORE_WIN)
+        #define core_debug_break() __debugbreak()
     #else
-        #define DEBUGBREAK()
+        #define core_debug_break()
     #endif
-    #define LOG(...) Core::log(__VA_ARGS__)
-    #define ENSURE(X, ...) (Core::ensure(X, __VA_ARGS__))
-    #define CHECK(X, ...) (Core::check(X, __VA_ARGS__))
+    #define core_log(...) Core::log(__VA_ARGS__)
+    #define core_ensure(X, ...) (Core::ensure(X, __VA_ARGS__))
+    #define core_check(X, ...) (Core::check(X, __VA_ARGS__))
     
 namespace Core
 {
@@ -46,7 +46,7 @@ namespace Core
         if (!expr)
         {
             log(fmt, std::forward<TArgs>(args)...);
-            DEBUGBREAK();
+            core_debug_break();
         }
     }
 
@@ -59,10 +59,10 @@ namespace Core
 }
 
 #else
-    #define CHECK(X, ...)
-    #define DEBUGBREAK()
-    #define ENSURE(X, ...) (X)
-    #define LOG(...) 
+    #define core_check(X, ...)
+    #define core_debug_break()
+    #define core_ensure(X, ...) (X)
+    #define core_log(...) 
 #endif
 namespace Core
 {

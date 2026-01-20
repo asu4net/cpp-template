@@ -54,7 +54,7 @@ Model::Model(std::string_view filename, bool normals_as_colors)
 
     if (!ok)
     {
-        CHECK(false, "Mesh could not be loaded!\n");
+        core_check(false, "Mesh could not be loaded!\n");
         return;
     }
 

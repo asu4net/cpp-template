@@ -21,11 +21,11 @@ namespace Core
             audio_done();
         }
 
-        LOG("Audio System created!\n");
+        core_log("Audio System created!\n");
         auto result = ma_engine_init(nullptr, &g_audio.engine);
         if (result != MA_SUCCESS) 
         {
-            CHECK(false, "Error! Failed to initialize the audio engine!");
+            core_check(false, "Error! Failed to initialize the audio engine!");
             return false;
         }
         g_audio.inited = true;
@@ -36,7 +36,7 @@ namespace Core
     {
         if (g_audio.inited)
         {
-            LOG("Audio System destroyed!\n");
+            core_log("Audio System destroyed!\n");
             ma_engine_uninit(&g_audio.engine);
             g_audio.inited = false;
         }
@@ -48,7 +48,7 @@ namespace Core
         auto result = ma_sound_init_from_file(&g_audio.engine, filename.c_str(), 0, nullptr, nullptr, sound);
         if (result != MA_SUCCESS)
         {
-            CHECK(false, "Error! Failed to load the sound!");
+            core_check(false, "Error! Failed to load the sound!");
             return {};
         }
         return handle;

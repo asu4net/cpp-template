@@ -1,4 +1,4 @@
-#ifdef PFM_WIN
+#ifdef CORE_WIN
 
 #include "win32_window.h"
 #include "win32_input.h"
@@ -14,7 +14,7 @@ Win32_Window::Win32_Window(const Window_Desc& ds)
 {
     if (ds.flags & Window_Desc::Flags::MAIN_WINDOW)
     {
-        if (ENSURE(!g_main_window, "There is already a main window!"))
+        if (core_ensure(!g_main_window, "There is already a main window!"))
         {
             g_main_window = this;
 
@@ -36,14 +36,14 @@ Win32_Window::Win32_Window(const Window_Desc& ds)
             //@Note: CreateSolidBrush changes the background color, I guess.
             wc.hbrBackground = CreateSolidBrush(RGB(ds.bg_color.x * 255, ds.bg_color.y * 255, ds.bg_color.z * 255));
 
-            if (!ENSURE(RegisterClass(&wc) != 0, "Couldn't register the Win32 window class.\n")) return;
+            if (!core_ensure(RegisterClass(&wc) != 0, "Couldn't register the Win32 window class.\n")) return;
 
-            LOG("Win32 Window class registered!\n");
+            core_log("Win32 Window class registered!\n");
         }
     }
     else
     {
-        if (!ENSURE(g_main_window, "We need a Main Window created first!\n"))
+        if (!core_ensure(g_main_window, "We need a Main Window created first!\n"))
         {
             return;
         }
@@ -77,15 +77,15 @@ Win32_Window::Win32_Window(const Window_Desc& ds)
         nullptr                     // Additional application data.
     );
 
-    if (ENSURE(hwnd != 0, "Couldn't create the Win32 window!\n"))
+    if (core_ensure(hwnd != 0, "Couldn't create the Win32 window!\n"))
     {
         m_handle = hwnd;
         if (ds.flags & Window_Desc::Flags::SHOW) show();
     }
 
-    LOG("Win32 Window created!\n");
+    core_log("Win32 Window created!\n");
 
-#if defined(API_GL)
+#if defined(CORE_GL)
     if (ds.flags & Window_Desc::Flags::CONTEXT)
     {
         m_gl_context = std::make_unique<Win32_GL_Context>(m_handle);
@@ -121,7 +121,7 @@ Win32_Window::~Win32_Window()
 
         DestroyWindow(m_handle);
         m_handle = nullptr;
-        LOG("Win32 Window destroyed!\n");
+        core_log("Win32 Window destroyed!\n");
     }
 }
 
@@ -138,15 +138,15 @@ auto Win32_Window::handle() const -> void*
 
 auto Win32_Window::present(bool vsync) const -> void
 {
-#if defined(API_GL)
-    if (ENSURE(m_gl_context, "We need a wgl context to present! \n"))
+#if defined(CORE_GL)
+    if (core_ensure(m_gl_context, "We need a wgl context to present! \n"))
     {
         m_gl_context->swap_interval(vsync ? 1 : 0);
         m_gl_context->swap_buffers();
     }
-#elif defined(API_D3D11)
+#elif defined(CORE_D3D11)
     renderer().present(vsync);
 #endif
 }
 
-#endif // PFM_WIN
+#endif // CORE_WIN

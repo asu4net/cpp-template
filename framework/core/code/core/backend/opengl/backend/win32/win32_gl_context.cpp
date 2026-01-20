@@ -1,6 +1,6 @@
 #include "win32_gl_context.h"
 
-#if defined (PFM_WIN) && defined(API_GL)
+#if defined (CORE_WIN) && defined(CORE_GL)
 
 #include "core/backend/win32/win32_window.h"
 
@@ -84,7 +84,7 @@ static  auto resolve_gl_functions()
 
 Win32_GL_Context::Win32_GL_Context(HWND window_handle)
 {
-    if (!ENSURE(window_handle, "This is not a valid window handle!\n")) return;
+    if (!core_ensure(window_handle, "This is not a valid window handle!\n")) return;
 
     resolve_wgl_functions();
 	
@@ -116,7 +116,7 @@ Win32_GL_Context::Win32_GL_Context(HWND window_handle)
 		WGL_CONTEXT_MINOR_VERSION_ARB, 6,
 		WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
 		
-		#ifdef CFG_DEBUG
+		#ifdef CORE_DEBUG
 		WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_DEBUG_BIT_ARB,
 		#endif
 		
@@ -131,14 +131,14 @@ Win32_GL_Context::Win32_GL_Context(HWND window_handle)
 	
 	resolve_gl_functions();
 
-    LOG("Win32 OpenGL Context created!\n");
+    core_log("Win32 OpenGL Context created!\n");
 }
 
 Win32_GL_Context::~Win32_GL_Context()
 {
 	wglMakeCurrent(NULL, NULL);
 	wglDeleteContext(m_context);
-    LOG("Win32 OpenGL Context destroyed!\n");
+    core_log("Win32 OpenGL Context destroyed!\n");
 }
 
 auto Win32_GL_Context::swap_interval(i32 interval) -> void
