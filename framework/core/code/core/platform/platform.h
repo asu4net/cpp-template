@@ -18,25 +18,25 @@ namespace Core
     // *** Setup ***
 
     // @Note: Just creates IWindow and IInput instances.
-    fn setup_platform(Platform_Desc ds = {}) -> bool;
+    auto setup_platform(Platform_Desc ds = {}) -> bool;
 
     // *** Window ***
-    fn swap_buffers(bool vsync = true) -> void;
+    auto swap_buffers(bool vsync = true) -> void;
 
     // *** Input ***
 
-    fn poll_events() -> void;
-    fn events_this_frame() -> const std::vector<Input_Event>&;
-    fn key_down(u32 key_code) -> bool;
-    fn set_cursor_mode(Cursor_Mode mode) -> void;
+    auto poll_events() -> void;
+    auto events_this_frame() -> const std::vector<Input_Event>&;
+    auto key_down(u32 key_code) -> bool;
+    auto set_cursor_mode(Cursor_Mode mode) -> void;
 
     // *** Time ***
 
-    fn time_step() -> void;
-    fn frame_time() -> f32;
-    fn frame_rate() -> f32;
-    fn av_frame_rate() -> f32;
-    fn set_time_scale(f32 scale) -> void;
+    auto time_step() -> void;
+    auto frame_time() -> f32;
+    auto frame_rate() -> f32;
+    auto av_frame_rate() -> f32;
+    auto set_time_scale(f32 scale) -> void;
 }
 
 // *** ImGui ***
@@ -45,5 +45,5 @@ namespace ImGui
     // @Hack: We have to do this before ImGui::DestroyContext.
     // Why? Because when we reach DestoyContext ImGui have already zeroed the window positions.
     // Why? No fucking clue.
-    fn ForceSaveIniFile() -> void;
+    auto ForceSaveIniFile() -> void;
 }

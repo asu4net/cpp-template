@@ -62,7 +62,7 @@ FOR_GL_FUNCTIONS(DO_DECLARATIONS)
 
 // @Note: Helper functions
 
-inline fn glCompileShaderWithPrefix(std::string_view source, std::string_view prefix, GLenum type) -> GLuint
+inline auto glCompileShaderWithPrefix(std::string_view source, std::string_view prefix, GLenum type) -> GLuint
 {
     GLuint shader = glCreateShader(type);
 
@@ -84,7 +84,7 @@ inline fn glCompileShaderWithPrefix(std::string_view source, std::string_view pr
     if (success == GL_FALSE)
     {
         // @Pending: Wrap this stuff into a macro.
-        internal constexpr GLsizei LOG_BUFFER_SIZE = 512;
+        static  constexpr GLsizei LOG_BUFFER_SIZE = 512;
         GLchar log_buffer[LOG_BUFFER_SIZE];
         GLsizei log_lenght;
         glGetShaderInfoLog(shader, LOG_BUFFER_SIZE, &log_lenght, log_buffer);
@@ -95,7 +95,7 @@ inline fn glCompileShaderWithPrefix(std::string_view source, std::string_view pr
     return shader;
 }
 
-inline fn glCreateProgramFromSource(std::string_view source) -> GLuint
+inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
 {
     if (source.empty())
     {
@@ -103,7 +103,7 @@ inline fn glCreateProgramFromSource(std::string_view source) -> GLuint
         return 0u;
     }
     
-    internal constexpr cstring vert_prefix =
+    static  constexpr cstring vert_prefix =
         "#version 460 core \n"
         "#define VERTEX_SHADER \n";
     
@@ -115,7 +115,7 @@ inline fn glCreateProgramFromSource(std::string_view source) -> GLuint
         return 0u;
     }
 
-    internal constexpr cstring frag_prefix =
+    static  constexpr cstring frag_prefix =
         "#version 460 core \n"
         "#define FRAGMENT_SHADER \n";
 
@@ -144,7 +144,7 @@ inline fn glCreateProgramFromSource(std::string_view source) -> GLuint
 
     if (success == GL_FALSE)
     {
-        internal constexpr GLsizei LOG_BUFFER_SIZE = 512;
+        static  constexpr GLsizei LOG_BUFFER_SIZE = 512;
         GLchar log_buffer[LOG_BUFFER_SIZE];
         GLsizei log_lenght;
         glGetProgramInfoLog(prog, LOG_BUFFER_SIZE, &log_lenght, log_buffer);

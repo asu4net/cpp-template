@@ -3,7 +3,7 @@
 #include "vector4.h"
 #include "matrix4.h"
 
-fn Quaternion::from_axis_angle(const Vector3& axis, f32 rad) -> Quaternion
+auto Quaternion::from_axis_angle(const Vector3& axis, f32 rad) -> Quaternion
 {
     f32 half = rad * 0.5f;
     f32 s = std::sinf(half);
@@ -16,7 +16,7 @@ fn Quaternion::from_axis_angle(const Vector3& axis, f32 rad) -> Quaternion
     };
 }
 
-fn Quaternion::from_euler_angles(const Vector3& r) -> Quaternion
+auto Quaternion::from_euler_angles(const Vector3& r) -> Quaternion
 {
     Quaternion qx = from_axis_angle(Math::Right3D, r.x);
     Quaternion qy = from_axis_angle(Math::Up3D, r.y);
@@ -24,7 +24,7 @@ fn Quaternion::from_euler_angles(const Vector3& r) -> Quaternion
     return qz * qy * qx;
 }
 
-fn Quaternion::operator==(const Quaternion& b) const -> bool
+auto Quaternion::operator==(const Quaternion& b) const -> bool
 {
     return (std::abs(x - b.x) <= Math::F32_EPSILON) 
         && (std::abs(y - b.y) <= Math::F32_EPSILON) 
@@ -32,12 +32,12 @@ fn Quaternion::operator==(const Quaternion& b) const -> bool
         && (std::abs(w - b.w) <= Math::F32_EPSILON);
 }
 
-fn Quaternion::operator!=(const Quaternion& b) const -> bool
+auto Quaternion::operator!=(const Quaternion& b) const -> bool
 {
     return !(operator==(b));
 }
 
-fn Quaternion::operator*(const Quaternion& b) const -> Quaternion
+auto Quaternion::operator*(const Quaternion& b) const -> Quaternion
 {
     return {
         w*b.x + x*b.w + y*b.z - z*b.y,
@@ -47,17 +47,17 @@ fn Quaternion::operator*(const Quaternion& b) const -> Quaternion
     };
 }
 
-fn Quaternion::operator*=(const Quaternion& b) -> Quaternion&
+auto Quaternion::operator*=(const Quaternion& b) -> Quaternion&
 {
     return *this = *this * b;
 }
 
-fn Quaternion::lenght() const -> f32
+auto Quaternion::lenght() const -> f32
 {
     return std::sqrt(x * x + y * y + z * z + w * w);
 }
 
-fn Quaternion::normalized() const -> Quaternion
+auto Quaternion::normalized() const -> Quaternion
 {
     auto len = lenght();
     return { x / len, y / len, z / len, w / len };

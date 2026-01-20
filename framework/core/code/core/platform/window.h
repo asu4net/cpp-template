@@ -24,11 +24,11 @@ public:
     using Weak_Ptr = std::weak_ptr<IWindow>;
     using Ptr = std::shared_ptr<IWindow>;
 
-    static fn create(const Window_Desc& ds = {})->Ptr;
+    static auto create(const Window_Desc& ds = {})->Ptr;
 
     virtual ~IWindow() = default;
     
-    virtual fn handle() const -> void* = 0;
-    virtual fn show() const -> void = 0;
-    virtual fn present(bool vsync = true) const -> void = 0;
+    virtual auto handle() const -> void* = 0;
+    virtual auto show() const -> void = 0;
+    virtual auto present(bool vsync = true) const -> void = 0;
 };

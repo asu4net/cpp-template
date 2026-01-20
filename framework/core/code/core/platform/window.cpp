@@ -6,7 +6,7 @@
     #include "core/backend/win32/win32_window.h"
 #endif
 
-fn IWindow::create(const Window_Desc& ds) -> Ptr
+auto IWindow::create(const Window_Desc& ds) -> Ptr
 {
 #if defined(PFM_WIN)
     return std::make_shared<Win32_Window>(ds);

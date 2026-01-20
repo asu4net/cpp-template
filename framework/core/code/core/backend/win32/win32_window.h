@@ -20,12 +20,12 @@ public:
     Win32_Window(const Win32_Window&) = delete;
     Win32_Window(Win32_Window&&) = delete;
     
-    fn operator=(const Win32_Window&) -> Win32_Window & = delete;
-    fn operator=(Win32_Window&&) -> Win32_Window & = delete;
+    auto operator=(const Win32_Window&) -> Win32_Window & = delete;
+    auto operator=(Win32_Window&&) -> Win32_Window & = delete;
     
-    fn handle() const -> void* override;
-    fn show() const -> void override;
-    fn present(bool vsync) const -> void override;
+    auto handle() const -> void* override;
+    auto show() const -> void override;
+    auto present(bool vsync) const -> void override;
     
 private:
     HWND m_handle = nullptr;

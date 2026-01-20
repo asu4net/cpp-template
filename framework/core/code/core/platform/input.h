@@ -119,12 +119,12 @@ class IInput
 {
 public:
     using Ptr = std::unique_ptr<IInput>;
-    static fn create(const Input_Desc& ds = {})->Ptr;
+    static auto create(const Input_Desc& ds = {})->Ptr;
 
     virtual ~IInput() = default;
 
-    virtual fn poll_events() const -> void = 0;
-    virtual fn events_this_frame() const -> const std::vector<Input_Event>& = 0;
-    virtual fn key_down(u32 key_code) const -> bool = 0;
-    virtual fn set_cursor_mode(Cursor_Mode mode) -> void = 0;
+    virtual auto poll_events() const -> void = 0;
+    virtual auto events_this_frame() const -> const std::vector<Input_Event>& = 0;
+    virtual auto key_down(u32 key_code) const -> bool = 0;
+    virtual auto set_cursor_mode(Cursor_Mode mode) -> void = 0;
 };

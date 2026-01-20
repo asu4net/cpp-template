@@ -15,11 +15,11 @@ public:
     Win32_GL_Context(const Win32_GL_Context&) = delete;
     Win32_GL_Context(Win32_GL_Context&&) = delete;
 
-    fn operator=(const Win32_GL_Context&) -> Win32_GL_Context& = delete;
-    fn operator=(Win32_GL_Context&&) -> Win32_GL_Context& = delete;
+    auto operator=(const Win32_GL_Context&) -> Win32_GL_Context& = delete;
+    auto operator=(Win32_GL_Context&&) -> Win32_GL_Context& = delete;
     
-    fn swap_interval(i32 interval) -> void;
-    fn swap_buffers() const -> void;
+    auto swap_interval(i32 interval) -> void;
+    auto swap_buffers() const -> void;
 
 private:
     HGLRC m_context = nullptr;

@@ -6,7 +6,7 @@ class Vector4
 {
 public:
     // @Note: Returns how much a goes in the direction of b. (0 -> perpendicular)
-    static fn dot(const Vector4& a, const Vector4& b) -> f32;
+    static auto dot(const Vector4& a, const Vector4& b) -> f32;
     
     constexpr Vector4() : x(0), y(0), z(0), w(0)
     {
@@ -20,24 +20,24 @@ public:
     {
     }
 
-    fn operator==(const Vector4& b) const -> bool;
-    fn operator!=(const Vector4& b) const -> bool;
+    auto operator==(const Vector4& b) const -> bool;
+    auto operator!=(const Vector4& b) const -> bool;
 
-    fn operator+(const Vector4& b) const -> Vector4;
-    fn operator-(const Vector4& b) const -> Vector4;
+    auto operator+(const Vector4& b) const -> Vector4;
+    auto operator-(const Vector4& b) const -> Vector4;
     
-    fn operator+=(const Vector4& b) -> Vector4&;
-    fn operator-=(const Vector4& b) -> Vector4&;
+    auto operator+=(const Vector4& b) -> Vector4&;
+    auto operator-=(const Vector4& b) -> Vector4&;
     
-    fn operator*(const Vector4& b) const -> Vector4;
-    fn operator*(const Matrix4& m) const -> Vector4;
-    fn operator/(const Vector4& b) const -> Vector4;
+    auto operator*(const Vector4& b) const -> Vector4;
+    auto operator*(const Matrix4& m) const -> Vector4;
+    auto operator/(const Vector4& b) const -> Vector4;
     
-    fn operator*=(const Vector4& b) -> Vector4&;
-    fn operator/=(const Vector4& b) -> Vector4&;
+    auto operator*=(const Vector4& b) -> Vector4&;
+    auto operator/=(const Vector4& b) -> Vector4&;
     
-    fn lenght() const -> f32;
-    fn normalized() const -> Vector4;
+    auto lenght() const -> f32;
+    auto normalized() const -> Vector4;
     
     f32 x, y, z, w;
 };

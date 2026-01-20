@@ -13,29 +13,29 @@ class Quaternion;
 class Matrix4 
 {
 public:
-    static fn from_quaternion(const Quaternion& q) -> Matrix4;
+    static auto from_quaternion(const Quaternion& q) -> Matrix4;
 
     // @Note: Transformations. 
-    static fn translate(const Vector3& t) -> Matrix4;
-    static fn scale(const Vector3& s) -> Matrix4;
-    static fn rotate(const Quaternion& r) -> Matrix4;
-    static fn rotate(const Vector3& r) -> Matrix4;
-    static fn transform(const Vector3& t, const Vector3& r = Math::Zero3D, const Vector3& s = Math::One3D) -> Matrix4;
+    static auto translate(const Vector3& t) -> Matrix4;
+    static auto scale(const Vector3& s) -> Matrix4;
+    static auto rotate(const Quaternion& r) -> Matrix4;
+    static auto rotate(const Vector3& r) -> Matrix4;
+    static auto transform(const Vector3& t, const Vector3& r = Math::Zero3D, const Vector3& s = Math::One3D) -> Matrix4;
 
     // @Note: Swap rows & columns.
-    static fn transpose(const Matrix4& a) -> Matrix4;
+    static auto transpose(const Matrix4& a) -> Matrix4;
     // @Note: Reverts the operation. Ex: Prev M -> Transformed M | Prev M = Transformed M-1
-    static fn inverse(const Matrix4& a) -> Matrix4;
+    static auto inverse(const Matrix4& a) -> Matrix4;
     // @Note: Mesures volume's scale, check mirrored, if returns 0 inverse does not exist.
-    static fn determinant(const Matrix4& a) -> f32;
+    static auto determinant(const Matrix4& a) -> f32;
     
     // @Note: RH (Right Handed): Negative Z goes forward. (OpenGL)
     // NO (Negative One to One): Depth values are normalized between -1 and 1.
     // ------------------------
-    static fn view(const Vector3& p, const Quaternion& r) -> Matrix4;
-    static fn orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Matrix4;
-    static fn orthographic(f32 aspect, f32 size, f32 n, f32 f) -> Matrix4;
-    static fn perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Matrix4;
+    static auto view(const Vector3& p, const Quaternion& r) -> Matrix4;
+    static auto orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Matrix4;
+    static auto orthographic(f32 aspect, f32 size, f32 n, f32 f) -> Matrix4;
+    static auto perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Matrix4;
     // ------------------------
     // @Pending: Do the LH version.
 
@@ -60,15 +60,15 @@ public:
     {
     }
 
-    fn operator==(const Matrix4& b) const -> bool;
-    fn operator!=(const Matrix4& b) const -> bool;
+    auto operator==(const Matrix4& b) const -> bool;
+    auto operator!=(const Matrix4& b) const -> bool;
 
-    fn operator*(const Matrix4& b) const -> Matrix4;
-    fn operator*=(const Matrix4& b) -> Matrix4&;
+    auto operator*(const Matrix4& b) const -> Matrix4;
+    auto operator*=(const Matrix4& b) -> Matrix4&;
     
-    fn operator*(const Vector4& v) const -> Vector4;
+    auto operator*(const Vector4& v) const -> Vector4;
 
-    fn data() -> f32*;
+    auto data() -> f32*;
     
     // @Note: Row major matrix. First number is the row, Second is the column. (D3D11)
     f32 _11, _12, _13, _14;

@@ -4,11 +4,11 @@ class Vector2
 {
 public:
     // @Note: Returns how much a goes in the direction of b. (0 -> perpendicular)
-    static fn dot(const Vector2& a, const Vector2& b) -> f32;
+    static auto dot(const Vector2& a, const Vector2& b) -> f32;
     // @Note: Returns the euclidean (real) distance between to points.
-    static fn distance(const Vector2& a, const Vector2& b) -> f32;
+    static auto distance(const Vector2& a, const Vector2& b) -> f32;
     // @Note: Same as distance but without the std::sqrt. std::sqrt is a heavy operation, this is useful for comparisons.
-    static fn sqrt_distance(const Vector2& a, const Vector2& b) -> f32;
+    static auto sqrt_distance(const Vector2& a, const Vector2& b) -> f32;
     
     constexpr Vector2() : x(0), y(0)
     {
@@ -18,32 +18,32 @@ public:
     {
     }
     
-    fn operator==(const Vector2& b) const -> bool;
-    fn operator!=(const Vector2& b) const -> bool;
+    auto operator==(const Vector2& b) const -> bool;
+    auto operator!=(const Vector2& b) const -> bool;
 
-    fn operator+(const Vector2& b) const -> Vector2;
-    fn operator-(const Vector2& b) const -> Vector2;
+    auto operator+(const Vector2& b) const -> Vector2;
+    auto operator-(const Vector2& b) const -> Vector2;
     
-    fn operator+=(const Vector2& b) -> Vector2&;
-    fn operator-=(const Vector2& b) -> Vector2&;
+    auto operator+=(const Vector2& b) -> Vector2&;
+    auto operator-=(const Vector2& b) -> Vector2&;
     
-    fn operator*(const Vector2& b) const -> Vector2;
-    fn operator/(const Vector2& b) const -> Vector2;
+    auto operator*(const Vector2& b) const -> Vector2;
+    auto operator/(const Vector2& b) const -> Vector2;
     
-    fn operator*=(const Vector2& b) -> Vector2&;
-    fn operator/=(const Vector2& b) -> Vector2&;
+    auto operator*=(const Vector2& b) -> Vector2&;
+    auto operator/=(const Vector2& b) -> Vector2&;
 
-    fn operator*(f32 b) const->Vector2;
-    fn operator/(f32 b) const->Vector2;
+    auto operator*(f32 b) const->Vector2;
+    auto operator/(f32 b) const->Vector2;
 
-    fn operator*=(f32 b) -> Vector2&;
-    fn operator/=(f32 b) -> Vector2&;
+    auto operator*=(f32 b) -> Vector2&;
+    auto operator/=(f32 b) -> Vector2&;
 
-    fn lenght() const -> f32;
-    fn normalized() const -> Vector2;
+    auto lenght() const -> f32;
+    auto normalized() const -> Vector2;
 
-    fn radians() const -> Vector2;
-    fn degrees() const -> Vector2;
+    auto radians() const -> Vector2;
+    auto degrees() const -> Vector2;
     
     f32 x, y;
 };

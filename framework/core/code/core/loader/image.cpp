@@ -3,7 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "core/loader/vendor/stb/stb_image.h"
 
-fn Image::white() -> const Image&
+auto Image::white() -> const Image&
 {
     static u8 g_white_pixels[] = { 255, 255, 255, 255 };
     static Image image = { g_white_pixels, 1, 1, 4 };
@@ -22,7 +22,7 @@ Image::Image(u8* data, i32 width, i32 height, i32 channels)
 Image::Image(std::string_view filename)
 {
     if (filename.empty())
-    then return;
+    return;
 
     stbi_set_flip_vertically_on_load(1);
     stbi_uc* data = stbi_load(filename.data(), &m_width, &m_height, &m_channels, 0);
@@ -41,7 +41,7 @@ Image::~Image()
     }
 }
 
-fn Image::valid() const -> bool
+auto Image::valid() const -> bool
 {
     bool is_valid = m_data != nullptr &&
         m_width    > 0 &&

@@ -32,17 +32,17 @@ public:
     Model(const Model&) = delete;
     Model(Model&&) noexcept = delete;
 
-    fn operator=(const Model&) -> Model& = delete;
-    fn operator=(Model&&) noexcept -> Model& = delete;
+    auto operator=(const Model&) -> Model& = delete;
+    auto operator=(Model&&) noexcept -> Model& = delete;
     
-    fn loaded() const -> bool { return m_loaded; }
-    fn dirpath() const -> std::string_view { return m_dirpath; }
+    auto loaded() const -> bool { return m_loaded; }
+    auto dirpath() const -> std::string_view { return m_dirpath; }
 
     // @Note: These are non-constant vector references because we want to steal them later, from the mesh class.
-    fn name() const -> const std::string& { return m_name; }
-    fn vertices() -> std::vector<Vertex>& { return m_vertices; }
-    fn indices() -> std::vector<u32>& { return m_indices; }
-    fn shapes() -> std::vector<Shape>& { return m_shapes; }
+    auto name() const -> const std::string& { return m_name; }
+    auto vertices() -> std::vector<Vertex>& { return m_vertices; }
+    auto indices() -> std::vector<u32>& { return m_indices; }
+    auto shapes() -> std::vector<Shape>& { return m_shapes; }
 
 private:
     bool m_loaded = false;

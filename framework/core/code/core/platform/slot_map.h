@@ -5,7 +5,7 @@ struct Slot_Handle
     u32 index = Limits::U32_Max;
     u32 generation = 0;
 
-    fn valid() const -> bool  { return index < Limits::U32_Max; }
+    auto valid() const -> bool  { return index < Limits::U32_Max; }
 };
 
 template<typename T>
@@ -29,31 +29,31 @@ public:
             skip_to_valid(); 
         }
         
-        fn operator*() const -> reference { return *map->m_slots[index].ptr(); }
-        fn operator->() const -> pointer { return map->m_slots[index].ptr(); }
+        auto operator*() const -> reference { return *map->m_slots[index].ptr(); }
+        auto operator->() const -> pointer { return map->m_slots[index].ptr(); }
 
-        fn operator++() -> iterator&
+        auto operator++() -> iterator&
         {
             ++index;
             skip_to_valid();
             return *this;
         }
         
-        fn operator++(i32) -> iterator&
+        auto operator++(i32) -> iterator&
         {
             iterator tmp = *this;
             ++(*this);
             return tmp;
         }
         
-        fn operator==(const iterator& other) -> bool const { return index == other.index && map == other.map; }
-        fn operator!=(const iterator& other) -> bool const { return !(*this == other); }
+        auto operator==(const iterator& other) -> bool const { return index == other.index && map == other.map; }
+        auto operator!=(const iterator& other) -> bool const { return !(*this == other); }
 
         Slot_Map<T>* map;
         size_t index;
 
     private:
-        fn skip_to_valid() -> void
+        auto skip_to_valid() -> void
         {
             while (index < map->m_slots.size() && !map->m_slots[index].occupied)
             {
@@ -82,14 +82,14 @@ public:
     Slot_Map(const Slot_Map&) = delete;
     Slot_Map(Slot_Map&&) noexcept = delete;
     
-    fn operator=(const Slot_Map&) -> Slot_Map& = delete;
-    fn operator=(Slot_Map&&) noexcept -> Slot_Map& = delete;
+    auto operator=(const Slot_Map&) -> Slot_Map& = delete;
+    auto operator=(Slot_Map&&) noexcept -> Slot_Map& = delete;
 
-    fn begin() -> iterator { return iterator(this, 0); }
-    fn end() -> iterator { return iterator(this, m_slots.size()); }
+    auto begin() -> iterator { return iterator(this, 0); }
+    auto end() -> iterator { return iterator(this, m_slots.size()); }
     
     template<typename ...TArgs>
-    fn insert(TArgs&& ...args) -> std::pair<Slot_Handle, T*>
+    auto insert(TArgs&& ...args) -> std::pair<Slot_Handle, T*>
     {
         u32 index;
         if (!m_free_list.empty())
@@ -111,7 +111,7 @@ public:
         return { Slot_Handle{ index, slot.generation }, data };
     }
 
-    fn alive(Slot_Handle handle) const -> bool
+    auto alive(Slot_Handle handle) const -> bool
     {
         return handle.valid() &&
                m_slots.size() &&
@@ -119,13 +119,13 @@ public:
                m_slots[handle.index].generation == handle.generation;
     }
 
-    fn get(Slot_Handle handle) -> T*
+    auto get(Slot_Handle handle) -> T*
     {
         if (!alive(handle)) return nullptr;
         return m_slots[handle.index].ptr();
     }
     
-    fn erase(Slot_Handle handle) -> void
+    auto erase(Slot_Handle handle) -> void
     {
         if (!alive(handle)) return;
 
@@ -144,7 +144,7 @@ private:
         u32 generation = 0u;
         bool occupied = false;
         
-        fn ptr() -> T* { return std::launder(reinterpret_cast<T*>(storage)); }
+        auto ptr() -> T* { return std::launder(reinterpret_cast<T*>(storage)); }
     };
 
     std::vector<Slot<T>> m_slots;

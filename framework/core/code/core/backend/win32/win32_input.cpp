@@ -1,13 +1,13 @@
 #include "win32_input.h"
 #include "imgui_impl_win32.h"
 
-internal auto g_input_created = false;
-internal std::vector<Input_Event> g_events;
-internal Key_State::Type g_key_states[Key_Code::Count] = {};
-internal bool g_key_down_table[Key_Code::Count] = {};
-internal Cursor_Mode g_cursor_mode = Cursor_Mode::Default;
+static  auto g_input_created = false;
+static  std::vector<Input_Event> g_events;
+static  Key_State::Type g_key_states[Key_Code::Count] = {};
+static  bool g_key_down_table[Key_Code::Count] = {};
+static  Cursor_Mode g_cursor_mode = Cursor_Mode::Default;
 
-internal fn from_windows_format(WPARAM wParam) -> Key_Code::Type
+static  auto from_windows_format(WPARAM wParam) -> Key_Code::Type
 {
     // *** ASCII KEYS ***
     if (wParam >= '0' && wParam <= '9')
@@ -65,10 +65,10 @@ internal fn from_windows_format(WPARAM wParam) -> Key_Code::Type
     return Key_Code::Unknown;
 }
 
-internal fn update_cursor_state()
+static  auto update_cursor_state()
 {
     if (g_cursor_mode == Cursor_Mode::Default)
-    then return;
+    return;
 
     HWND fg = GetForegroundWindow();
     
@@ -101,10 +101,10 @@ internal fn update_cursor_state()
 // @Note Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-fn CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT 
+auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT 
 {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
-    then return true;
+    return true;
 
     if (!g_input_created)
     {
@@ -270,7 +270,7 @@ Win32_Input::~Win32_Input()
     LOG("Win32 Input destroyed!\n");
 }
 
-fn Win32_Input::poll_events() const -> void
+auto Win32_Input::poll_events() const -> void
 {
     g_events.resize(0);
 
@@ -282,17 +282,17 @@ fn Win32_Input::poll_events() const -> void
     }
 }
 
-fn Win32_Input::events_this_frame() const -> const std::vector<Input_Event>&
+auto Win32_Input::events_this_frame() const -> const std::vector<Input_Event>&
 {
     return g_events;
 }
 
-fn Win32_Input::key_down(u32 key_code) const -> bool
+auto Win32_Input::key_down(u32 key_code) const -> bool
 {
     return g_key_down_table[key_code];
 }
 
-fn Win32_Input::set_cursor_mode(Cursor_Mode mode) -> void
+auto Win32_Input::set_cursor_mode(Cursor_Mode mode) -> void
 {    
     if (mode == g_cursor_mode)
         return;

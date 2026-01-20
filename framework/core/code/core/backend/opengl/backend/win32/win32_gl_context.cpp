@@ -10,11 +10,11 @@
 
 #include "vendor/wglext.h"
 
-internal PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB{};
-internal PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB{};
-internal PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT{};
+static  PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB{};
+static  PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB{};
+static  PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT{};
 
-internal fn resolve_wgl_functions() -> void
+static  auto resolve_wgl_functions() -> void
 {
 	// @Note: Old OpenGL context. Needed to load wgl extensions.
 	
@@ -54,7 +54,7 @@ internal fn resolve_wgl_functions() -> void
 	wglDeleteContext(context);
 }
 
-internal fn resolve_gl_proc(cstring name) -> void*
+static  auto resolve_gl_proc(cstring name) -> void*
 {
 	void* p = (void*) wglGetProcAddress(name);
 
@@ -72,7 +72,7 @@ internal fn resolve_gl_proc(cstring name) -> void*
 	return p;
 }
 
-internal fn resolve_gl_functions()
+static  auto resolve_gl_functions()
 {
 #define DO_RESOLVE(_SIGNATURE, _NAME) \
 	_NAME = reinterpret_cast<_SIGNATURE>(resolve_gl_proc(#_NAME));
@@ -84,7 +84,7 @@ internal fn resolve_gl_functions()
 
 Win32_GL_Context::Win32_GL_Context(HWND window_handle)
 {
-    if (!ENSURE(window_handle, "This is not a valid window handle!\n")) then return;
+    if (!ENSURE(window_handle, "This is not a valid window handle!\n")) return;
 
     resolve_wgl_functions();
 	
@@ -141,12 +141,12 @@ Win32_GL_Context::~Win32_GL_Context()
     LOG("Win32 OpenGL Context destroyed!\n");
 }
 
-fn Win32_GL_Context::swap_interval(i32 interval) -> void
+auto Win32_GL_Context::swap_interval(i32 interval) -> void
 {
 	wglSwapIntervalEXT(interval);
 }
 
-fn Win32_GL_Context::swap_buffers() const -> void
+auto Win32_GL_Context::swap_buffers() const -> void
 {
     SwapBuffers(m_device);
 }

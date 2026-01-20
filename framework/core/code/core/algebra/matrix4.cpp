@@ -3,7 +3,7 @@
 #include "vector4.h"
 #include "quaternion.h"
 
-fn Matrix4::from_quaternion(const Quaternion& q) -> Matrix4
+auto Matrix4::from_quaternion(const Quaternion& q) -> Matrix4
 {
     Quaternion n = q.normalized();
     
@@ -36,7 +36,7 @@ fn Matrix4::from_quaternion(const Quaternion& q) -> Matrix4
     return m;
 }
 
-fn Matrix4::translate(const Vector3& t) -> Matrix4
+auto Matrix4::translate(const Vector3& t) -> Matrix4
 {
     Matrix4 m(Math::IdentityM4);
     m._14 = t.x;
@@ -45,7 +45,7 @@ fn Matrix4::translate(const Vector3& t) -> Matrix4
     return m;
 }
 
-fn Matrix4::scale(const Vector3& s) -> Matrix4
+auto Matrix4::scale(const Vector3& s) -> Matrix4
 {
     Matrix4 m(Math::IdentityM4);
     m._11 = s.x;
@@ -54,25 +54,25 @@ fn Matrix4::scale(const Vector3& s) -> Matrix4
     return m;
 }
 
-fn Matrix4::rotate(const Quaternion& r) -> Matrix4
+auto Matrix4::rotate(const Quaternion& r) -> Matrix4
 {
     Matrix4 m = from_quaternion(r);
     return m;
 }
 
-fn Matrix4::rotate(const Vector3& r) -> Matrix4
+auto Matrix4::rotate(const Vector3& r) -> Matrix4
 {
     Quaternion q = Quaternion::from_euler_angles(r);
     return rotate(q);
 }
 
-fn Matrix4::transform(const Vector3& t, const Vector3& r, const Vector3& s) -> Matrix4
+auto Matrix4::transform(const Vector3& t, const Vector3& r, const Vector3& s) -> Matrix4
 {
     // @Note: It applies from right to left: Local scale, local rotation, world translation.
     return translate(t) * rotate(r) * scale(s);
 }
 
-fn Matrix4::transpose(const Matrix4& a) -> Matrix4
+auto Matrix4::transpose(const Matrix4& a) -> Matrix4
 {
     return {
         a._11,a._21,a._31,a._41,
@@ -82,7 +82,7 @@ fn Matrix4::transpose(const Matrix4& a) -> Matrix4
     };
 }
 
-fn Matrix4::inverse(const Matrix4& a) -> Matrix4
+auto Matrix4::inverse(const Matrix4& a) -> Matrix4
 {
     Matrix4 r(Math::IdentityM4);
 
@@ -132,7 +132,7 @@ fn Matrix4::inverse(const Matrix4& a) -> Matrix4
     return r;
 }
 
-fn Matrix4::determinant(const Matrix4& a) -> f32 
+auto Matrix4::determinant(const Matrix4& a) -> f32 
 {
     f32 a0 = a._11 * a._22 - a._12 * a._21;
     f32 a1 = a._11 * a._23 - a._13 * a._21;
@@ -151,12 +151,12 @@ fn Matrix4::determinant(const Matrix4& a) -> f32
     return a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
 }
 
-fn Matrix4::view(const Vector3& p, const Quaternion& r) -> Matrix4
+auto Matrix4::view(const Vector3& p, const Quaternion& r) -> Matrix4
 {
     return inverse(rotate(r)) * inverse(translate(p));
 }
 
-fn Matrix4::orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Matrix4
+auto Matrix4::orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Matrix4
 {
     Matrix4 m(Math::IdentityM4);
 
@@ -171,14 +171,14 @@ fn Matrix4::orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Matrix4
     return m;
 }
 
-fn Matrix4::orthographic(f32 aspect, f32 size, f32 n, f32 f) -> Matrix4
+auto Matrix4::orthographic(f32 aspect, f32 size, f32 n, f32 f) -> Matrix4
 {
     f32 w = size * aspect;
     f32 h = size;
     return orthographic(-w, w, -h, h, n, f);
 }
 
-fn Matrix4::perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Matrix4
+auto Matrix4::perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Matrix4
 {
     Matrix4 m;
     f32 t = std::tanf(fovy * 0.5f);
@@ -192,17 +192,17 @@ fn Matrix4::perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Matrix4
     return m;
 }
 
-fn Matrix4::operator==(const Matrix4& b) const -> bool
+auto Matrix4::operator==(const Matrix4& b) const -> bool
 {
     return std::memcmp(this, &b, sizeof(Matrix4)) == 0;
 }
 
-fn Matrix4::operator!=(const Matrix4& b) const -> bool
+auto Matrix4::operator!=(const Matrix4& b) const -> bool
 {
     return !(*this == b);
 }
 
-fn Matrix4::operator*(const Matrix4& b) const -> Matrix4
+auto Matrix4::operator*(const Matrix4& b) const -> Matrix4
 {
     Matrix4 r;
 
@@ -229,13 +229,13 @@ fn Matrix4::operator*(const Matrix4& b) const -> Matrix4
     return r;
 }
 
-fn Matrix4::operator*=(const Matrix4& b) -> Matrix4&
+auto Matrix4::operator*=(const Matrix4& b) -> Matrix4&
 {
     *this = *this * b;
     return *this;
 }
 
-fn Matrix4::operator*(const Vector4& v) const -> Vector4
+auto Matrix4::operator*(const Vector4& v) const -> Vector4
 {
     return {
         _11*v.x + _12*v.y + _13*v.z + _14*v.w,
@@ -245,7 +245,7 @@ fn Matrix4::operator*(const Vector4& v) const -> Vector4
     };
 }
 
-fn Matrix4::data() -> f32*
+auto Matrix4::data() -> f32*
 {
     return &_11;
 }

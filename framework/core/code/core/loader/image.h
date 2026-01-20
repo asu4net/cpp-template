@@ -5,7 +5,7 @@
 class Image
 {
 public:
-    static fn white() -> const Image&;
+    static auto white() -> const Image&;
 
     Image() = default;
     Image(u8* data, i32 width, i32 height, i32 channels);
@@ -15,14 +15,14 @@ public:
     Image(const Image&) = delete;
     Image(Image&&) noexcept = delete;
 
-    fn operator=(const Image&) -> Image& = delete;
-    fn operator=(Image&&) noexcept -> Image& = delete;
+    auto operator=(const Image&) -> Image& = delete;
+    auto operator=(Image&&) noexcept -> Image& = delete;
     
-    fn data() const -> const u8* { return m_data; }
-    fn width() const -> i32 { return m_width; }
-    fn height() const -> i32 { return m_height; }
-    fn channels() const -> i32 { return m_channels; }
-    fn valid() const -> bool;
+    auto data() const -> const u8* { return m_data; }
+    auto width() const -> i32 { return m_width; }
+    auto height() const -> i32 { return m_height; }
+    auto channels() const -> i32 { return m_channels; }
+    auto valid() const -> bool;
 
 private:
     u8* m_data = nullptr;

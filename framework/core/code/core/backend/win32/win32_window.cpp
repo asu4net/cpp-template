@@ -7,8 +7,8 @@
 #define FULLSCREEN_STYLE         WS_VISIBLE | WS_POPUP
 #define SECONDARY_WINDOW_STYLE   WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 
-internal auto g_window_class_name = L"Window Class";
-internal Win32_Window* g_main_window = nullptr;
+static  auto g_window_class_name = L"Window Class";
+static  Win32_Window* g_main_window = nullptr;
 
 Win32_Window::Win32_Window(const Window_Desc& ds)
 {
@@ -36,7 +36,7 @@ Win32_Window::Win32_Window(const Window_Desc& ds)
             //@Note: CreateSolidBrush changes the background color, I guess.
             wc.hbrBackground = CreateSolidBrush(RGB(ds.bg_color.x * 255, ds.bg_color.y * 255, ds.bg_color.z * 255));
 
-            if (!ENSURE(RegisterClass(&wc) != 0, "Couldn't register the Win32 window class.\n")) then return;
+            if (!ENSURE(RegisterClass(&wc) != 0, "Couldn't register the Win32 window class.\n")) return;
 
             LOG("Win32 Window class registered!\n");
         }
@@ -80,7 +80,7 @@ Win32_Window::Win32_Window(const Window_Desc& ds)
     if (ENSURE(hwnd != 0, "Couldn't create the Win32 window!\n"))
     {
         m_handle = hwnd;
-        if (ds.flags & Window_Desc::Flags::SHOW) then show();
+        if (ds.flags & Window_Desc::Flags::SHOW) show();
     }
 
     LOG("Win32 Window created!\n");
@@ -125,18 +125,18 @@ Win32_Window::~Win32_Window()
     }
 }
 
-fn Win32_Window::show() const -> void
+auto Win32_Window::show() const -> void
 {
     UpdateWindow(m_handle);
     ShowWindow(m_handle, SW_SHOW);
 }
 
-fn Win32_Window::handle() const -> void*
+auto Win32_Window::handle() const -> void*
 {
     return m_handle;
 }
 
-fn Win32_Window::present(bool vsync) const -> void
+auto Win32_Window::present(bool vsync) const -> void
 {
 #if defined(API_GL)
     if (ENSURE(m_gl_context, "We need a wgl context to present! \n"))

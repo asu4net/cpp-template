@@ -4,13 +4,13 @@ class Vector3
 {
 public:    
     // @Note: Returns how much a goes in the direction of b. (0 -> perpendicular)
-    static fn dot(const Vector3& a, const Vector3& b) -> f32;
+    static auto dot(const Vector3& a, const Vector3& b) -> f32;
     // @Note: Returns a perpendicular vector to the (a, b) plane.
-    static fn cross(const Vector3& a, const Vector3& b) -> Vector3;
+    static auto cross(const Vector3& a, const Vector3& b) -> Vector3;
     // @Note: Returns the euclidean (real) distance between to points.
-    static fn distance(const Vector3& a, const Vector3& b) -> f32;
+    static auto distance(const Vector3& a, const Vector3& b) -> f32;
     // @Note: Same as distance but without the std::sqrt. std::sqrt is a heavy operation, this is useful for comparisons.
-    static fn sqrt_distance(const Vector3& a, const Vector3& b) -> f32;
+    static auto sqrt_distance(const Vector3& a, const Vector3& b) -> f32;
     
     constexpr Vector3() : x(0), y(0), z(0)
     {
@@ -28,32 +28,32 @@ public:
     {
     }
 
-    fn operator==(const Vector3& b) const -> bool;
-    fn operator!=(const Vector3& b) const -> bool;
+    auto operator==(const Vector3& b) const -> bool;
+    auto operator!=(const Vector3& b) const -> bool;
 
-    fn operator+(const Vector3& b) const -> Vector3;
-    fn operator-(const Vector3& b) const -> Vector3;
+    auto operator+(const Vector3& b) const -> Vector3;
+    auto operator-(const Vector3& b) const -> Vector3;
     
-    fn operator+=(const Vector3& b) -> Vector3&;
-    fn operator-=(const Vector3& b) -> Vector3&;
+    auto operator+=(const Vector3& b) -> Vector3&;
+    auto operator-=(const Vector3& b) -> Vector3&;
     
-    fn operator*(const Vector3& b) const -> Vector3;
-    fn operator/(const Vector3& b) const -> Vector3;
+    auto operator*(const Vector3& b) const -> Vector3;
+    auto operator/(const Vector3& b) const -> Vector3;
     
-    fn operator*=(const Vector3& b) -> Vector3&;
-    fn operator/=(const Vector3& b) -> Vector3&;
+    auto operator*=(const Vector3& b) -> Vector3&;
+    auto operator/=(const Vector3& b) -> Vector3&;
     
-    fn operator*(f32 b) const -> Vector3;
-    fn operator/(f32 b) const -> Vector3;
+    auto operator*(f32 b) const -> Vector3;
+    auto operator/(f32 b) const -> Vector3;
 
-    fn operator*=(f32 b) -> Vector3&;
-    fn operator/=(f32 b) -> Vector3&;
+    auto operator*=(f32 b) -> Vector3&;
+    auto operator/=(f32 b) -> Vector3&;
     
-    fn lenght() const -> f32;
-    fn normalized() const -> Vector3;
+    auto lenght() const -> f32;
+    auto normalized() const -> Vector3;
     
-    fn radians() const -> Vector3;
-    fn degrees() const -> Vector3;
+    auto radians() const -> Vector3;
+    auto degrees() const -> Vector3;
 
     f32 x, y, z;
 };

@@ -1,6 +1,6 @@
 #include "time.h"
 
-fn Time::step() -> void
+auto Time::step() -> void
 {
     //@Note: Lazy init.
     if (m_seconds < 0) 
@@ -30,23 +30,23 @@ fn Time::step() -> void
     m_frame_index = (m_frame_index + 1) % FPS_SAMPLES;
 }
 
-fn Time::frame_time() const -> f32
+auto Time::frame_time() const -> f32
 {
     return m_frame_time;
 }
 
-fn Time::frame_rate() const -> f32
+auto Time::frame_rate() const -> f32
 {
     f32 av = m_frame_total / FPS_SAMPLES;
     return av > 0.f ? 1.f / av : 0.f;
 }
 
-fn Time::av_frame_rate() const -> f32
+auto Time::av_frame_rate() const -> f32
 {
     return (f32) m_frame_count / (f32) m_seconds;
 }
 
-fn Time::set_scale(f32 scale) -> void
+auto Time::set_scale(f32 scale) -> void
 {
     m_scale = scale;
 }

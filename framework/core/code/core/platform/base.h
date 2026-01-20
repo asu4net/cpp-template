@@ -1,9 +1,5 @@
 #pragma once
 
-#define fn auto
-#define then
-#define internal static
-
 using cstring = const char*;
 using cwstring = const wchar_t*;
 
@@ -42,10 +38,10 @@ using f64 = double;
     
 namespace Core
 {
-    fn log(cstring fmt, ...) -> void;
+    auto log(cstring fmt, ...) -> void;
 
     template<typename T, typename... TArgs>
-    fn check(T&& expr, cstring fmt, TArgs&&... args)
+    auto check(T&& expr, cstring fmt, TArgs&&... args)
     {
         if (!expr)
         {
@@ -55,7 +51,7 @@ namespace Core
     }
 
     template<typename T, typename... TArgs>
-    fn ensure(T&& expr, cstring fmt, TArgs&&... args) -> T&&
+    auto ensure(T&& expr, cstring fmt, TArgs&&... args) -> T&&
     {
         check(std::forward<T>(expr), fmt, std::forward<T>(args)...);
         return std::forward<T>(expr);
@@ -70,9 +66,9 @@ namespace Core
 #endif
 namespace Core
 {
-    fn read_entire_file(std::string_view filename) -> std::string;
+    auto read_entire_file(std::string_view filename) -> std::string;
     // @Note: This is relative to the exe path. Ex: "\\..\\..\\assets" would set the wdir two folders up the exe, inside the assets dir.
-    fn set_working_dir(const std::string& path) -> void;
-    fn get_time() -> f64;
-    fn trim(std::string text)->std::string;
+    auto set_working_dir(const std::string& path) -> void;
+    auto get_time() -> f64;
+    auto trim(std::string text)->std::string;
 }

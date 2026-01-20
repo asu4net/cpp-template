@@ -7,7 +7,7 @@
 #include <Windows.h>
 #endif
 
-fn Core::log(cstring fmt, ...) -> void
+auto Core::log(cstring fmt, ...) -> void
 {
     va_list args;
     va_start(args, fmt);
@@ -15,7 +15,7 @@ fn Core::log(cstring fmt, ...) -> void
     va_end(args);
 }
 
-fn Core::read_entire_file(std::string_view filename) -> std::string
+auto Core::read_entire_file(std::string_view filename) -> std::string
 {
     std::ifstream file;
     file.open(filename);
@@ -27,10 +27,10 @@ fn Core::read_entire_file(std::string_view filename) -> std::string
     return buf;
 }
 
-fn Core::set_working_dir(const std::string& path) -> void
+auto Core::set_working_dir(const std::string& path) -> void
 {
     if (path.empty())
-    then return;
+    return;
 
 #if defined (PFM_WIN)
     std::wostringstream conv;
@@ -49,7 +49,7 @@ fn Core::set_working_dir(const std::string& path) -> void
 #endif
 }
 
-fn Core::get_time() -> f64
+auto Core::get_time() -> f64
 {
 #if defined(PFM_WIN)
     static LARGE_INTEGER frequency;
@@ -71,7 +71,7 @@ fn Core::get_time() -> f64
 #endif
 }
 
-fn Core::trim(std::string text) -> std::string
+auto Core::trim(std::string text) -> std::string
 {
     std::string s = text;
     // left Global::trim

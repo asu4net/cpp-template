@@ -8,11 +8,11 @@ public:
     Time() = default;
     ~Time() = default;
 
-    fn step() -> void;
-    fn frame_time() const -> f32;
-    fn frame_rate() const -> f32;
-    fn av_frame_rate() const -> f32;
-    fn set_scale(f32 scale) -> void;
+    auto step() -> void;
+    auto frame_time() const -> f32;
+    auto frame_rate() const -> f32;
+    auto av_frame_rate() const -> f32;
+    auto set_scale(f32 scale) -> void;
 
 private:
     // @Pending: Add setters for this two parameters.

@@ -10,11 +10,11 @@ struct Audio_State
     bool inited = false;
 };
 
-internal Audio_State g_audio;
+static  Audio_State g_audio;
 
 namespace Core
 {
-    fn audio_init() -> bool
+    auto audio_init() -> bool
     {
         if (g_audio.inited)
         {
@@ -32,7 +32,7 @@ namespace Core
         return true;
     }
     
-    fn audio_done() -> void
+    auto audio_done() -> void
     {
         if (g_audio.inited)
         {
@@ -42,7 +42,7 @@ namespace Core
         }
     }
 
-    fn audio_load(const std::string& filename) -> Audio_Handle
+    auto audio_load(const std::string& filename) -> Audio_Handle
     {
         auto&[handle, sound] = g_audio.sounds.insert();
         auto result = ma_sound_init_from_file(&g_audio.engine, filename.c_str(), 0, nullptr, nullptr, sound);
@@ -54,31 +54,31 @@ namespace Core
         return handle;
     }
 
-    fn audio_free(const Audio_Handle& handle) -> void
+    auto audio_free(const Audio_Handle& handle) -> void
     {
         auto* sound = g_audio.sounds.get(handle);
         if (sound)
-        then ma_sound_uninit(sound);
+        ma_sound_uninit(sound);
     }
 
-    fn audio_play(const Audio_Handle& handle) -> void
+    auto audio_play(const Audio_Handle& handle) -> void
     {
         auto* sound = g_audio.sounds.get(handle);
         if (sound)
-        then ma_sound_start(sound);
+        ma_sound_start(sound);
     }
 
-    fn audio_stop(const Audio_Handle& handle) -> void
+    auto audio_stop(const Audio_Handle& handle) -> void
     {
         auto* sound = g_audio.sounds.get(handle);
         if (sound)
-        then ma_sound_stop(sound);
+        ma_sound_stop(sound);
     }
 
-    fn set_volume(const Audio_Handle& handle, f32 volume) -> void
+    auto set_volume(const Audio_Handle& handle, f32 volume) -> void
     {
         auto* sound = g_audio.sounds.get(handle);
         if (sound)
-        then ma_sound_set_volume(sound, volume);
+        ma_sound_set_volume(sound, volume);
     }
 }

@@ -30,7 +30,7 @@
 Model::Model(std::string_view filename, bool normals_as_colors)
 {
     if (filename.empty())
-    then return;
+    return;
 
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;

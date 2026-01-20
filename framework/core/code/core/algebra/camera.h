@@ -10,17 +10,17 @@ public:
     Free_Look() = default;
     ~Free_Look() = default;
     
-    fn init(Camera* camera) { m_camera = camera; }
+    auto init(Camera* camera) { m_camera = camera; }
 
-    fn move_forward(f32 dt) -> void;
-    fn move_backward(f32 dt) -> void;
-    fn move_right(f32 dt) -> void;
-    fn move_left(f32 dt) -> void;
-    fn move_up(f32 dt) -> void;
-    fn move_down(f32 dt) -> void;
-    fn rotate(f32 dx, f32 dy) -> void;
-    fn forward() const -> Vector3;
-    fn right() const -> Vector3;
+    auto move_forward(f32 dt) -> void;
+    auto move_backward(f32 dt) -> void;
+    auto move_right(f32 dt) -> void;
+    auto move_left(f32 dt) -> void;
+    auto move_up(f32 dt) -> void;
+    auto move_down(f32 dt) -> void;
+    auto rotate(f32 dx, f32 dy) -> void;
+    auto forward() const -> Vector3;
+    auto right() const -> Vector3;
     
     f32 speed = 40.f;
     f32 sensivity = 0.1f;
@@ -65,8 +65,8 @@ public:
     Camera() = default;
     ~Camera() = default;
 
-    fn matrix() const -> Matrix4 { return m_matrix; }
-    fn update_matrix(i32 viewport_x, i32 viewport_y) -> void;
+    auto matrix() const -> Matrix4 { return m_matrix; }
+    auto update_matrix(i32 viewport_x, i32 viewport_y) -> void;
 
     Mode mode = Mode::None;
     Vector3 pos = Math::Zero3D;

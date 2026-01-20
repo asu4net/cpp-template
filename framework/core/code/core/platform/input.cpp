@@ -6,7 +6,7 @@
     #include "core/backend/win32/win32_input.h"
 #endif
 
-fn IInput::create(const Input_Desc& ds) -> Ptr
+auto IInput::create(const Input_Desc& ds) -> Ptr
 {
 #if defined(PFM_WIN)
     return std::make_unique<Win32_Input>(ds);
