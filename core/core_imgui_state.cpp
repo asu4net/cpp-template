@@ -2,7 +2,7 @@
 
 #if defined(CORE_GL) && defined(CORE_WIN)
 
-#include "core_backend/opengl/backend/win32/win32_gl_imgui.h"
+#include "core_backend/win32_gl_imgui.h"
 
 namespace ImGui
 {

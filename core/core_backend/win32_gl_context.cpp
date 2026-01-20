@@ -2,13 +2,13 @@
 
 #if defined (CORE_WIN) && defined(CORE_GL)
 
-#include "core_backend/win32/win32_window.h"
+#include "core_backend/win32_window.h"
 
 #define GL_PROCS_NO_EXTERN
-#include "core_backend/opengl/gl_functions.h"
+#include "core_backend/gl_functions.h"
 #undef GL_PROCS_NO_EXTERN
 
-#include "vendor/wglext.h"
+#include "core_vendor/wglext.h"
 
 static  PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB{};
 static  PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB{};

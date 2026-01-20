@@ -2,7 +2,7 @@
 
 #if defined(CORE_DEBUG) && defined(CORE_GL)
 
-#include "core_backend/opengl/gl_functions.h"
+#include "core_backend/gl_functions.h"
 
 // @Note: This is not in the GL context because it's platform independent. (I guess)
 

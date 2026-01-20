@@ -6,7 +6,7 @@
 #include <Windows.h>
 
 #ifdef CORE_GL
-#include "core_backend/opengl/backend/win32/win32_gl_context.h"
+#include "core_backend/win32_gl_context.h"
 #endif
 
 #include "core_window.h"

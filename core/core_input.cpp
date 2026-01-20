@@ -3,7 +3,7 @@
 #if defined (CORE_WIN)
     #define WIN32_MEAN_AND_LEAN
     #include <Windows.h>
-    #include "core_backend/win32/win32_input.h"
+    #include "core_backend/win32_input.h"
 #endif
 
 auto IInput::create(const Input_Desc& ds) -> Ptr
