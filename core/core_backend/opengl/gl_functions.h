@@ -5,7 +5,7 @@
 #endif
 
 #include "GL/GL.h"
-#include "vendor/glext.h"
+#include "core_backend/opengl/vendor/glext.h"
 
 // @Note: Lets cast some X macro spells...
 

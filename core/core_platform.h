@@ -1,8 +1,8 @@
 #pragma once
-#include "core/platform/window.h"
-#include "core/platform/input.h"
-#include "core/platform/time.h"
-#include "core/imgui/imgui_state.h"
+#include "core_window.h"
+#include "core_input.h"
+#include "core_time.h"
+#include "core_imgui_state.h"
 
 // @Note: This file is just a C-style easy wrapper for the common stuff. You don't need to use it.
 

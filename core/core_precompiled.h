@@ -13,11 +13,10 @@
 #include <array>
 
 #include "imgui.h"
-#include "core/platform/base.h"
-#include "core/platform/limits.h"
-#include "core/platform/slot_map.h"
-#include "core/platform/span.h"
-#include "core/platform/time.h"
-#include "core/platform/audio.h"
-
-#include "core/../../core_algebra.h"
+#include "core_base.h"
+#include "core_limits.h"
+#include "core_slot_map.h"
+#include "core_span.h"
+#include "core_time.h"
+#include "core_audio.h"
+#include "core_algebra.h"

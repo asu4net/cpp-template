@@ -1,8 +1,8 @@
-#include "platform.h"
+#include "core_platform.h"
 
 #if defined(CORE_DEBUG) && defined(CORE_GL)
 
-#include "core/backend/opengl/gl_functions.h"
+#include "core_backend/opengl/gl_functions.h"
 
 // @Note: This is not in the GL context because it's platform independent. (I guess)
 

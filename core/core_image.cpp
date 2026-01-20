@@ -1,7 +1,7 @@
-#include "image.h"
+#include "core_image.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "core/loader/vendor/stb/stb_image.h"
+#include "core_vendor/stb_image.h"
 
 auto Image::white() -> const Image&
 {

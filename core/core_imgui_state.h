@@ -1,5 +1,5 @@
 #pragma once
-#include "core/platform/window.h"
+#include "core_window.h"
 
 namespace ImGui
 {

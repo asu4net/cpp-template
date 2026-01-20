@@ -1,7 +1,7 @@
-#include "audio.h"
+#include "core_audio.h"
 
 #define MINIAUDIO_IMPLEMENTATION
-#include "vendor/miniaudio.h"
+#include "core_vendor/miniaudio.h"
 
 struct Audio_State
 {

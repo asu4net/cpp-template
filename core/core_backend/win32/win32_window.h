@@ -6,10 +6,10 @@
 #include <Windows.h>
 
 #ifdef CORE_GL
-#include "core/backend/opengl/backend/win32/win32_gl_context.h"
+#include "core_backend/opengl/backend/win32/win32_gl_context.h"
 #endif
 
-#include "core/platform/window.h"
+#include "core_window.h"
 
 class Win32_Window final : public IWindow
 {

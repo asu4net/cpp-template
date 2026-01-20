@@ -1,7 +1,7 @@
-#include "model.h"
+#include "core_model.h"
 
 #define TINYOBJLOADER_IMPLEMENTATION
-#include "core/loader/vendor/tiny_obj_loader.h"
+#include "core_vendor/tiny_obj_loader.h"
 
 // @Note: Attrib layout:
 

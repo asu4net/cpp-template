@@ -1,5 +1,5 @@
 #pragma once
-#include "core/platform/input.h"
+#include "core_input.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>

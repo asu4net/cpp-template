@@ -10,7 +10,7 @@ group "3rd"
 group ""
 
 -- @Note: Our framework is just a bunch folders with the shared code.
-include "framework/core/premake5_core.lua"
+include "core/premake5_core.lua"
 
 function config_game()
     files { "assets/**.glsl" }    

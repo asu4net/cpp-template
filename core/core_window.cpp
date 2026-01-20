@@ -1,9 +1,9 @@
-#include "window.h"
+#include "core_window.h"
 
 #if defined (CORE_WIN)
     #define WIN32_MEAN_AND_LEAN
     #include <Windows.h>
-    #include "core/backend/win32/win32_window.h"
+    #include "core_backend/win32/win32_window.h"
 #endif
 
 auto IWindow::create(const Window_Desc& ds) -> Ptr
