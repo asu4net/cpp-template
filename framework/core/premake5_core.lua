@@ -10,6 +10,8 @@ function use_core()
     
     files 
     { 
+        core_location .. "/core_algebra.h",
+        core_location .. "/core_algebra.cpp",
         core_location .. "/**.lua",
         core_code_location .. "/**.h", 
         core_code_location .. "/**.cpp", 

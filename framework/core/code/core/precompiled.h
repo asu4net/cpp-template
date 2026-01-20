@@ -20,10 +20,4 @@
 #include "core/platform/time.h"
 #include "core/platform/audio.h"
 
-#include "core/algebra/common_f32.h"
-#include "core/algebra/vector2.h"
-#include "core/algebra/vector3.h"
-#include "core/algebra/vector4.h"
-#include "core/algebra/quaternion.h"
-#include "core/algebra/matrix4.h"
-#include "core/algebra/camera.h"
+#include "core/../../core_algebra.h"
