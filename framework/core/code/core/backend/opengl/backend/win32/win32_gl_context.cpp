@@ -131,14 +131,14 @@ Win32_GL_Context::Win32_GL_Context(HWND window_handle)
 	
 	resolve_gl_functions();
 
-    core_log("Win32 OpenGL Context created!\n");
+    core_log("Win32 OpenGL Context created!");
 }
 
 Win32_GL_Context::~Win32_GL_Context()
 {
 	wglMakeCurrent(NULL, NULL);
 	wglDeleteContext(m_context);
-    core_log("Win32 OpenGL Context destroyed!\n");
+    core_log("Win32 OpenGL Context destroyed!");
 }
 
 auto Win32_GL_Context::swap_interval(i32 interval) -> void

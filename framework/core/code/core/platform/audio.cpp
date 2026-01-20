@@ -19,7 +19,7 @@ auto core_audio_init() -> bool
         core_audio_done();
     }
 
-    core_log("Audio System created!\n");
+    core_log("Audio System created!");
     auto result = ma_engine_init(nullptr, &g_audio.engine);
     if (result != MA_SUCCESS) 
     {
@@ -34,7 +34,7 @@ auto core_audio_done() -> void
 {
     if (g_audio.inited)
     {
-        core_log("Audio System destroyed!\n");
+        core_log("Audio System destroyed!");
         ma_engine_uninit(&g_audio.engine);
         g_audio.inited = false;
     }

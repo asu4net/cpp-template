@@ -38,12 +38,12 @@ Win32_Window::Win32_Window(const Window_Desc& ds)
 
             if (!core_ensure(RegisterClass(&wc) != 0, "Couldn't register the Win32 window class.\n")) return;
 
-            core_log("Win32 Window class registered!\n");
+            core_log("Win32 Window class registered!");
         }
     }
     else
     {
-        if (!core_ensure(g_main_window, "We need a Main Window created first!\n"))
+        if (!core_ensure(g_main_window, "We need a Main Window created first!"))
         {
             return;
         }
@@ -77,13 +77,13 @@ Win32_Window::Win32_Window(const Window_Desc& ds)
         nullptr                     // Additional application data.
     );
 
-    if (core_ensure(hwnd != 0, "Couldn't create the Win32 window!\n"))
+    if (core_ensure(hwnd != 0, "Couldn't create the Win32 window!"))
     {
         m_handle = hwnd;
         if (ds.flags & Window_Desc::Flags::SHOW) show();
     }
 
-    core_log("Win32 Window created!\n");
+    core_log("Win32 Window created!");
 
 #if defined(CORE_GL)
     if (ds.flags & Window_Desc::Flags::CONTEXT)
@@ -121,7 +121,7 @@ Win32_Window::~Win32_Window()
 
         DestroyWindow(m_handle);
         m_handle = nullptr;
-        core_log("Win32 Window destroyed!\n");
+        core_log("Win32 Window destroyed!");
     }
 }
 

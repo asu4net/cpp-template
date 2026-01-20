@@ -13,6 +13,7 @@ auto core_internal_log(cstring fmt, ...) -> void
     va_start(args, fmt);
     vprintf(fmt, args);
     va_end(args);
+    printf("\n");
 }
 
 auto core_read_entire_file(std::string_view filename) -> std::string

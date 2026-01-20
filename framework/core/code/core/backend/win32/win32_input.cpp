@@ -257,7 +257,7 @@ Win32_Input::Win32_Input(const Input_Desc& ds)
     if (core_ensure(!g_input_created, "We don't support multiple instances for the Input class.\n"))
     {
         g_input_created = true;
-        core_log("Win32 Input created!\n");
+        core_log("Win32 Input created!");
     }
 }
 
@@ -267,7 +267,7 @@ Win32_Input::~Win32_Input()
     {
         g_input_created = false;
     }
-    core_log("Win32 Input destroyed!\n");
+    core_log("Win32 Input destroyed!");
 }
 
 auto Win32_Input::poll_events() const -> void
