@@ -42,7 +42,7 @@ namespace Core
 
     } g_state;
     
-    auto setup_platform(Platform_Desc ds) -> bool
+    auto core_platform_init(Platform_Desc ds) -> bool
     {
         if (g_state.is_setup)
         g_state = {}; // @Note: Reset the state.
@@ -65,52 +65,52 @@ namespace Core
         return g_state.is_setup;
     }
 
-    auto swap_buffers(bool vsync) -> void
+    auto core_swap_buffers(bool vsync) -> void
     {
         g_state.window->present(vsync);
     }
 
-    auto poll_events() -> void
+    auto core_poll_events() -> void
     {
         g_state.input->poll_events();
     }
 
-    auto events_this_frame() -> const std::vector<Input_Event>&
+    auto core_events_this_frame() -> const std::vector<Input_Event>&
     {
         return g_state.input->events_this_frame();
     }
 
-    auto key_down(u32 key_code) -> bool
+    auto core_key_down(u32 key_code) -> bool
     {
         return g_state.input->key_down(key_code);
     }
 
-    auto set_cursor_mode(Cursor_Mode mode) -> void
+    auto core_cursor_mode_set(Cursor_Mode mode) -> void
     {
         g_state.input->set_cursor_mode(mode);
     }
 
-    auto time_step() -> void
+    auto core_time_step() -> void
     {
         g_state.time.step();
     }
 
-    auto frame_time() -> f32
+    auto core_frame_time() -> f32
     {
         return g_state.time.frame_time();
     }
 
-    auto frame_rate() -> f32
+    auto core_frame_rate() -> f32
     {
         return g_state.time.frame_rate();
     }
 
-    auto av_frame_rate() -> f32
+    auto core_av_frame_rate() -> f32
     {
         return g_state.time.av_frame_rate();
     }
 
-    auto set_time_scale(f32 scale) -> void
+    auto core_time_scale_set(f32 scale) -> void
     {
         g_state.time.set_scale(scale);
     }

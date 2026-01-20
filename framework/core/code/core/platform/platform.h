@@ -13,31 +13,28 @@ struct Platform_Desc
     Input_Desc input;
 };
 
-namespace Core
-{
-    // *** Setup ***
+// *** Setup ***
 
-    // @Note: Just creates IWindow and IInput instances.
-    auto setup_platform(Platform_Desc ds = {}) -> bool;
+// @Note: Just creates IWindow and IInput instances.
+auto core_platform_init(Platform_Desc ds = {}) -> bool;
 
-    // *** Window ***
-    auto swap_buffers(bool vsync = true) -> void;
+// *** Window ***
+auto core_swap_buffers(bool vsync = true) -> void;
 
-    // *** Input ***
+// *** Input ***
 
-    auto poll_events() -> void;
-    auto events_this_frame() -> const std::vector<Input_Event>&;
-    auto key_down(u32 key_code) -> bool;
-    auto set_cursor_mode(Cursor_Mode mode) -> void;
+auto core_poll_events() -> void;
+auto core_events_this_frame() -> const std::vector<Input_Event>&;
+auto core_key_down(u32 key_code) -> bool;
+auto core_cursor_mode_set(Cursor_Mode mode) -> void;
 
-    // *** Time ***
+// *** Time ***
 
-    auto time_step() -> void;
-    auto frame_time() -> f32;
-    auto frame_rate() -> f32;
-    auto av_frame_rate() -> f32;
-    auto set_time_scale(f32 scale) -> void;
-}
+auto core_time_step() -> void;
+auto core_frame_time() -> f32;
+auto core_frame_rate() -> f32;
+auto core_av_frame_rate() -> f32;
+auto core_time_scale_set(f32 scale) -> void;
 
 // *** ImGui ***
 namespace ImGui
