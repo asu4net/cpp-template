@@ -99,7 +99,7 @@ inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
 {
     if (source.empty())
     {
-        core_log("Error! The shader source cannot be empty!\n");
+        core_log("Error! The shader source cannot be empty!");
         return 0u;
     }
     
@@ -111,7 +111,7 @@ inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
 
     if (vert == 0u)
     {
-        core_log("Error compiling the vertex shader.\n");
+        core_log("Error compiling the vertex shader.");
         return 0u;
     }
 
@@ -123,7 +123,7 @@ inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
 
     if (frag == 0u)
     {
-        core_log("Error compiling the fragment shader.\n");
+        core_log("Error compiling the fragment shader.");
         return 0u;
     }
     

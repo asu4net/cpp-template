@@ -5,12 +5,12 @@ auto Time::step() -> void
     //@Note: Lazy init.
     if (m_seconds < 0) 
     {
-        m_last_time = Core::get_time();
+        m_last_time = core_time();
         m_acc_fixed_frame_time = m_fixed_frame_time;
         m_seconds = 0;
     }
 
-    f64 current_time = Core::get_time();
+    f64 current_time = core_time();
     m_frame_count += 1;
     f64 time_between_frames = current_time - m_last_time;
     m_last_time = current_time;

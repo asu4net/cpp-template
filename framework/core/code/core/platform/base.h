@@ -32,31 +32,28 @@ using f64 = double;
     #else
         #define core_debug_break()
     #endif
-    #define core_log(...) Core::log(__VA_ARGS__)
-    #define core_ensure(X, ...) (Core::ensure(X, __VA_ARGS__))
-    #define core_check(X, ...) (Core::check(X, __VA_ARGS__))
+    #define core_log(...) core_internal_log(__VA_ARGS__)
+    #define core_ensure(X, ...) (core_internal_ensure(X, __VA_ARGS__))
+    #define core_check(X, ...) (core_internal_check(X, __VA_ARGS__))
     
-namespace Core
-{
-    auto log(cstring fmt, ...) -> void;
+    auto core_internal_log(cstring fmt, ...) -> void;
 
     template<typename T, typename... TArgs>
-    auto check(T&& expr, cstring fmt, TArgs&&... args)
+    auto core_internal_check(T&& expr, cstring fmt, TArgs&&... args)
     {
         if (!expr)
         {
-            log(fmt, std::forward<TArgs>(args)...);
+            core_internal_log(fmt, std::forward<TArgs>(args)...);
             core_debug_break();
         }
     }
 
     template<typename T, typename... TArgs>
-    auto ensure(T&& expr, cstring fmt, TArgs&&... args) -> T&&
+    auto core_internal_ensure(T&& expr, cstring fmt, TArgs&&... args) -> T&&
     {
-        check(std::forward<T>(expr), fmt, std::forward<T>(args)...);
+        core_internal_check(std::forward<T>(expr), fmt, std::forward<T>(args)...);
         return std::forward<T>(expr);
     }
-}
 
 #else
     #define core_check(X, ...)
@@ -64,11 +61,9 @@ namespace Core
     #define core_ensure(X, ...) (X)
     #define core_log(...) 
 #endif
-namespace Core
-{
-    auto read_entire_file(std::string_view filename) -> std::string;
-    // @Note: This is relative to the exe path. Ex: "\\..\\..\\assets" would set the wdir two folders up the exe, inside the assets dir.
-    auto set_working_dir(const std::string& path) -> void;
-    auto get_time() -> f64;
-    auto trim(std::string text)->std::string;
-}
+
+auto core_read_entire_file(std::string_view filename) -> std::string;
+// @Note: This is relative to the exe path. Ex: "\\..\\..\\assets" would set the wdir two folders up the exe, inside the assets dir.
+auto core_working_dir_set(const std::string& path) -> void;
+auto core_time() -> f64;
+auto core_trim(std::string text) -> std::string;
