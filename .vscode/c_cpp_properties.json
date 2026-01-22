@@ -8,7 +8,7 @@
             ],
             "defines": [
                 "PFM_DEBUG",
-                "CORE_GL",
+                "GAME_GL",
                 "WIN32",
                 "_WINDOWS",
                 "_UNICODE",
