@@ -1,14 +1,13 @@
 #include "os_win32_input.h"
 #include "imgui_impl_win32.h"
 
-static auto g_input_created = false;
-static std::vector<Input_Event> g_events;
-static Key_State::Type g_key_states[Key_Code::Count] = {};
-static bool g_key_down_table[Key_Code::Count] = {};
-static Cursor_Mode g_cursor_mode = Cursor_Mode::Default;
+internal auto g_input_created = false;
+internal std::vector<Input_Event> g_events;
+internal Key_State::Type g_key_states[Key_Code::Count] = {};
+internal bool g_key_down_table[Key_Code::Count] = {};
+internal Cursor_Mode g_cursor_mode = Cursor_Mode::Default;
 
-static auto from_windows_format(WPARAM wParam) -> Key_Code::Type
-{
+internal fn from_windows_format(WPARAM wParam) -> Key_Code::Type {
     // *** ASCII KEYS ***
     if (wParam >= '0' && wParam <= '9')
     {
@@ -65,8 +64,7 @@ static auto from_windows_format(WPARAM wParam) -> Key_Code::Type
     return Key_Code::Unknown;
 }
 
-static  auto update_cursor_state()
-{
+internal fn update_cursor_state() -> void {
     if (g_cursor_mode == Cursor_Mode::Default)
     return;
 
@@ -101,20 +99,16 @@ static  auto update_cursor_state()
 // @Note Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT 
-{
+fn CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
     return true;
 
-    if (!g_input_created)
-    {
+    if (!g_input_created) {
         return DefWindowProc(hWnd, msg, wParam, lParam);
     }
 
-    switch (msg)
-    {
-        case WM_INPUT:
-        {
+    switch (msg) {
+        case WM_INPUT: {
             UINT size = 0u;
             GetRawInputData((HRAWINPUT)lParam, RID_INPUT, NULL, &size, sizeof(RAWINPUTHEADER));
 
@@ -123,8 +117,7 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
             
             RAWINPUT* raw = (RAWINPUT*)buffer;
             
-            if (raw->header.dwType == RIM_TYPEMOUSE)
-            {
+            if (raw->header.dwType == RIM_TYPEMOUSE) {
                 LONG dx = raw->data.mouse.lLastX;
                 LONG dy = raw->data.mouse.lLastY;
                 
@@ -139,8 +132,7 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
             }
             break;
         }
-        case WM_SIZE:
-        {
+        case WM_SIZE: {
             auto& ev = g_events.emplace_back();
             ev.type = Input_Event::Window;
             ev.window_x = LOWORD(lParam);
@@ -149,15 +141,13 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
         }
         break;
 
-        case WM_MOVE:
-        {
+        case WM_MOVE: {
             update_cursor_state();
         }
         break;
 
         case WM_KEYDOWN:
-        case WM_SYSKEYDOWN:
-        {
+        case WM_SYSKEYDOWN: {
             auto& ev = g_events.emplace_back();
             ev.type = Input_Event::Key;
             ev.key_code = from_windows_format(wParam);
@@ -174,8 +164,7 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
         break;
 
         case WM_KEYUP:
-        case WM_SYSKEYUP:
-        {
+        case WM_SYSKEYUP: {
             auto& ev = g_events.emplace_back();
             ev.type = Input_Event::Key;
             ev.key_code = from_windows_format(wParam);
@@ -186,14 +175,12 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
         }
         break;
 
-        case WM_MOUSEMOVE:
-        {
+        case WM_MOUSEMOVE: {
             update_cursor_state();
         }
         break;
         case WM_LBUTTONDOWN:
-        case WM_LBUTTONUP:
-        {
+        case WM_LBUTTONUP: {
             auto& ev = g_events.emplace_back();
             ev.type = Input_Event::Key;
             ev.key_code = Key_Code::Mouse_Left;
@@ -205,8 +192,7 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
         break;
 
         case WM_RBUTTONDOWN:
-        case WM_RBUTTONUP:
-        {
+        case WM_RBUTTONUP: {
             auto& ev = g_events.emplace_back();
             ev.type = Input_Event::Key;
             ev.key_code = Key_Code::Mouse_Right;
@@ -218,8 +204,7 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
         break;
 
         case WM_MBUTTONDOWN:
-        case WM_MBUTTONUP:
-        {
+        case WM_MBUTTONUP: {
             auto& ev = g_events.emplace_back();
             ev.type = Input_Event::Key;
             ev.key_code = Key_Code::Mouse_Middle;
@@ -230,8 +215,7 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
         }
         break;
 
-        case WM_MOUSEWHEEL:
-        {
+        case WM_MOUSEWHEEL: {
             auto& ev = g_events.emplace_back();
             ev.type = Input_Event::Mouse_Wheel;
             ev.wheel_delta = (i32)GET_WHEEL_DELTA_WPARAM(wParam);
@@ -239,8 +223,7 @@ auto CALLBACK Win32_Input::process_events(HWND hWnd, UINT msg, WPARAM wParam, LP
         break;
 
         case WM_CLOSE:
-        case WM_QUIT:
-        {
+        case WM_QUIT: {
             auto& ev = g_events.emplace_back();
             ev.type = Input_Event::Quit;
         }

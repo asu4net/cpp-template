@@ -6,8 +6,7 @@
 #   error "Unsupported OS!"
 #endif
 
-auto os_read_entire_file(std::string_view filename) -> std::string
-{
+fn os_read_entire_file(std::string_view filename) -> std::string {
     std::ifstream file;
     file.open(filename);
     
@@ -19,8 +18,7 @@ auto os_read_entire_file(std::string_view filename) -> std::string
 }
 
 
-auto os_trim(std::string text) -> std::string
-{
+fn os_trim(std::string text) -> std::string {
     std::string s = text;
     // left Global::trim
     s.erase(s.begin(),
@@ -35,8 +33,7 @@ auto os_trim(std::string text) -> std::string
     return s;
 }
 
-auto os_set_working_dir(const std::string& path) -> void
-{
+fn os_set_working_dir(const std::string& path) -> void {
 #ifdef GAME_WIN
     os_set_working_dir_win32(path);
 #else
@@ -44,8 +41,7 @@ auto os_set_working_dir(const std::string& path) -> void
 #endif
 }
 
-auto os_get_time() -> f64
-{
+fn os_get_time() -> f64 {
 #ifdef GAME_WIN
     return os_get_time_win32();
 #else

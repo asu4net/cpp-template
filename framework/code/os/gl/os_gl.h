@@ -64,8 +64,7 @@ FOR_GL_FUNCTIONS(DO_DECLARATIONS)
 
 // @Note: Helper functions
 
-inline auto glCompileShaderWithPrefix(std::string_view source, std::string_view prefix, GLenum type) -> GLuint
-{
+inline fn glCompileShaderWithPrefix(std::string_view source, std::string_view prefix, GLenum type) -> GLuint {
     GLuint shader = glCreateShader(type);
 
     cstring sources[2];
@@ -97,8 +96,7 @@ inline auto glCompileShaderWithPrefix(std::string_view source, std::string_view 
     return shader;
 }
 
-inline auto glCreateProgramFromSource(std::string_view source) -> GLuint
-{
+inline fn glCreateProgramFromSource(std::string_view source) -> GLuint {
     if (source.empty())
     {
         dbg_log("Error! The shader source cannot be empty!");
