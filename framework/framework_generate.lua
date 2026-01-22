@@ -3,26 +3,11 @@ imgui_location = framework_location .. "/../3rd/imgui/src"
 imgui_backends_location = framework_location .. "/../3rd/imgui/src/backends" 
 
 framework_includedirs = {
-    framework_location,
     imgui_location,
     imgui_backends_location,
+    framework_location,
+    framework_location .. "/**",
     framework_location .. "/../3rd/khr",
-    framework_location .. "/base",
-    framework_location .. "/app",
-    framework_location .. "/app/imgui",
-    framework_location .. "/app/imgui/win-gl",
-    framework_location .. "/dbg",
-    framework_location .. "/load",
-    framework_location .. "/audio",
-    framework_location .. "/os",
-    framework_location .. "/os/gl",
-    framework_location .. "/os/core",
-    framework_location .. "/os/core/win",
-    framework_location .. "/os/window",
-    framework_location .. "/os/window/win",
-    framework_location .. "/os/window/win-gl",
-    framework_location .. "/os/input",
-    framework_location .. "/os/input/win",
 }
 
 cpp_lib_project "framework"
