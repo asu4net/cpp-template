@@ -1,6 +1,7 @@
 
 #include "app_imgui.h"
 #include "os_window.h"
+#include "imgui.h"
 
 #if defined(GAME_WIN) && defined(GAME_GL)
 #   include "app_imgui_win32_gl.h"
@@ -36,3 +37,9 @@ auto app_imgui_end() -> void
     app_imgui_end_win32_gl();
 #endif
 } 
+
+auto app_imgui_force_save_ini() -> void
+{
+    ImGui::SaveIniSettingsToDisk(ImGui::GetIO().IniFilename); // @Note: Manually save the file.
+    ImGui::GetIO().IniFilename = nullptr; // @Note: Prevent ImGui to save the file when it destroys the context.
+}

@@ -4,6 +4,9 @@ imgui_backends_location = framework_location .. "/../3rd/imgui/src/backends"
 
 framework_includedirs = {
     framework_location,
+    imgui_location,
+    imgui_backends_location,
+    framework_location .. "/../3rd/khr",
     framework_location .. "/base",
     framework_location .. "/app",
     framework_location .. "/app/imgui",
@@ -31,11 +34,8 @@ cpp_lib_project "framework"
     includedirs 
     {
         "3rd/miniaudio",
-        "3rd/khr",
         "3rd/stb",
         "3rd/tiny_obj_loader",
-        imgui_location,
-        imgui_backends_location,
         framework_includedirs,
     }
     

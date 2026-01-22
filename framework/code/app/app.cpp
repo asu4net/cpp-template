@@ -27,10 +27,13 @@ internal constexpr u32 FPS_SAMPLES = 240;
 
 struct App
 {
-    bool is_setup = false;
+    bool is_init = false;
+
+    // @Note: Os stuff (pending to remove OOP).
     IWindow::Ptr window;
     IInput::Ptr input;
 
+    // @Note: Time.
     f64 max_frame_time = 0.06;
     f64 fixed_frame_time = 0.06;
     f64 seconds = -1.f;
@@ -43,34 +46,19 @@ struct App
     f32 frame_times[FPS_SAMPLES] = {};
     u32 frame_index = 0u;
     f32 frame_total = 0.f;
-
-    // @Note: This is garbage, I hate C++....
-    App() = default;
-    App(const App&) = default;
-    App(App&&) = default;
-    auto operator=(const App&) -> App & = default;
-    auto operator=(App&&) -> App & = default;
-
-    // @Note: ....I just wanted to do this.
-    ~App() 
-    { 
-        audio_done(); 
-        app_imgui_done();
-    }
-
 } g_app;
 
 auto app_init(App_Desc ds) -> bool
 {
-    if (g_app.is_setup)
+    if (g_app.is_init)
         g_app = {}; // @Note: Reset the state.
 
     os_set_working_dir(ds.working_dir);
-    g_app.window = IWindow::create(ds.window);
     g_app.input = IInput::create(ds.input);
+    g_app.window = IWindow::create(ds.window);
     app_imgui_init(*g_app.window);
     audio_init();
-    g_app.is_setup = g_app.window && g_app.input;
+    g_app.is_init = g_app.window && g_app.input;
 
 #if defined(GAME_DEBUG) && defined(GAME_GL)
     glEnable(GL_DEBUG_OUTPUT);
@@ -80,7 +68,18 @@ auto app_init(App_Desc ds) -> bool
 
     //glBindTexture(GL_TEXTURE_2D, 999999); // @Note: Uncomment to check if the errors work.
 
-    return g_app.is_setup;
+    return g_app.is_init;
+}
+
+auto app_done() -> void
+{
+    if (g_app.is_init)
+    {
+        audio_done();
+        app_imgui_done();
+        g_app.window.reset();
+        g_app.input.reset();
+    }
 }
 
 auto app_swap_buffers(bool vsync) -> void
@@ -106,13 +105,6 @@ auto app_key_down(u32 key_code) -> bool
 auto app_set_cursor_mode(Cursor_Mode mode) -> void
 {
     g_app.input->set_cursor_mode(mode);
-}
-
-auto ImGui::ForceSaveIniFile() -> void
-{
-
-    ImGui::SaveIniSettingsToDisk(ImGui::GetIO().IniFilename); // @Note: Manually save the file.
-    ImGui::GetIO().IniFilename = nullptr; // @Note: Prevent ImGui to save the file when it destroys the context.
 }
 
 auto app_time_step() -> void

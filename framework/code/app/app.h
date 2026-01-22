@@ -18,6 +18,7 @@ struct App_Desc
 
 // @Note: Just creates IWindow and IInput instances.
 auto app_init(App_Desc ds = {}) -> bool;
+auto app_done() -> void;
 
 // *** Window ***
 auto app_swap_buffers(bool vsync = true) -> void;
@@ -36,12 +37,3 @@ auto app_frame_time() -> f32;
 auto app_frame_rate() -> f32;
 auto app_av_frame_rate() -> f32;
 auto app_set_time_scale(f32 scale) -> void;
-
-// *** ImGui ***
-namespace ImGui
-{
-    // @Hack: We have to do this before ImGui::DestroyContext.
-    // Why? Because when we reach DestoyContext ImGui have already zeroed the window positions.
-    // Why? No fucking clue.
-    auto ForceSaveIniFile() -> void;
-}
