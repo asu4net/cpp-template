@@ -3,7 +3,7 @@
 // @Note: Simple log macro implementation.
 
 #ifdef GAME_DEBUG
-    auto _dbg_log_function(cstring fmt, ...) -> void;
+    fn _dbg_log_function(cstring fmt, ...) -> void;
 #endif
 
 #ifdef GAME_DEBUG

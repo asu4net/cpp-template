@@ -1,7 +1,6 @@
 #pragma once
 
-namespace Limits
-{
+namespace Limits {
     inline constexpr i8  I8_Min = -127i8 - 1;
     inline constexpr i16 I16_Min = -32767i16 - 1;
     inline constexpr i32 I32_Min = -2147483647i32 - 1;

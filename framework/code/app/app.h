@@ -17,23 +17,23 @@ struct App_Desc
 // *** Setup ***
 
 // @Note: Just creates IWindow and IInput instances.
-auto app_init(App_Desc ds = {}) -> bool;
-auto app_done() -> void;
+fn app_init(App_Desc ds = {}) -> bool;
+fn app_done() -> void;
 
 // *** Window ***
-auto app_swap_buffers(bool vsync = true) -> void;
+fn app_swap_buffers(bool vsync = true) -> void;
 
 // *** Input ***
 
-auto app_poll_events() -> void;
-auto app_events_this_frame() -> const std::vector<Input_Event>&;
-auto app_key_down(u32 key_code) -> bool;
-auto app_set_cursor_mode(Cursor_Mode mode) -> void;
+fn app_poll_events() -> void;
+fn app_events_this_frame() -> const std::vector<Input_Event>&;
+fn app_key_down(u32 key_code) -> bool;
+fn app_set_cursor_mode(Cursor_Mode mode) -> void;
 
 // *** Time ***
 
-auto app_time_step() -> void;
-auto app_frame_time() -> f32;
-auto app_frame_rate() -> f32;
-auto app_av_frame_rate() -> f32;
-auto app_set_time_scale(f32 scale) -> void;
+fn app_time_step() -> void;
+fn app_frame_time() -> f32;
+fn app_frame_rate() -> f32;
+fn app_av_frame_rate() -> f32;
+fn app_set_time_scale(f32 scale) -> void;

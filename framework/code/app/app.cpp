@@ -8,7 +8,7 @@
 
 // @Note: This is not in the GL context because it's platform independent. (I guess)
 
-static auto APIENTRY _gl_debug_callback(
+static fn APIENTRY _gl_debug_callback(
     GLenum source, 
     GLenum type, 
     GLuint id, 
@@ -25,8 +25,8 @@ static auto APIENTRY _gl_debug_callback(
 
 internal constexpr u32 FPS_SAMPLES = 240;
 
-struct App
-{
+struct App {
+
     bool is_init = false;
 
     // @Note: Os stuff (pending to remove OOP).
@@ -48,8 +48,7 @@ struct App
     f32 frame_total = 0.f;
 } g_app;
 
-auto app_init(App_Desc ds) -> bool
-{
+fn app_init(App_Desc ds) -> bool {
     if (g_app.is_init)
         g_app = {}; // @Note: Reset the state.
 
@@ -71,10 +70,8 @@ auto app_init(App_Desc ds) -> bool
     return g_app.is_init;
 }
 
-auto app_done() -> void
-{
-    if (g_app.is_init)
-    {
+fn app_done() -> void {
+    if (g_app.is_init) {
         audio_done();
         app_imgui_done();
         g_app.window.reset();
@@ -82,36 +79,29 @@ auto app_done() -> void
     }
 }
 
-auto app_swap_buffers(bool vsync) -> void
-{
+fn app_swap_buffers(bool vsync) -> void {
     g_app.window->present(vsync);
 }
 
-auto app_poll_events() -> void
-{
+fn app_poll_events() -> void {
     g_app.input->poll_events();
 }
 
-auto app_events_this_frame() -> const std::vector<Input_Event>&
-{
+fn app_events_this_frame() -> const std::vector<Input_Event>& {
     return g_app.input->events_this_frame();
 }
 
-auto app_key_down(u32 key_code) -> bool
-{
+fn app_key_down(u32 key_code) -> bool {
     return g_app.input->key_down(key_code);
 }
 
-auto app_set_cursor_mode(Cursor_Mode mode) -> void
-{
+fn app_set_cursor_mode(Cursor_Mode mode) -> void {
     g_app.input->set_cursor_mode(mode);
 }
 
-auto app_time_step() -> void
-{
+fn app_time_step() -> void {
     //@Note: Lazy init.
-    if (g_app.seconds < 0) 
-    {
+    if (g_app.seconds < 0) {
         g_app.last_time = os_get_time();
         g_app.acc_fixed_frame_time = g_app.fixed_frame_time;
         g_app.seconds = 0;
@@ -125,8 +115,7 @@ auto app_time_step() -> void
     g_app.frame_time = (f32) std::clamp(time_between_frames, 0.0, g_app.max_frame_time) * g_app.scale;
     g_app.acc_fixed_frame_time += g_app.frame_time;
 
-    while (g_app.acc_fixed_frame_time >= g_app.fixed_frame_time)
-    {
+    while (g_app.acc_fixed_frame_time >= g_app.fixed_frame_time) {
         g_app.acc_fixed_frame_time -= g_app.fixed_frame_time;
         g_app.fixed_ticks += 1;
     }
@@ -137,23 +126,19 @@ auto app_time_step() -> void
     g_app.frame_index = (g_app.frame_index + 1) % FPS_SAMPLES;
 }
 
-auto app_frame_time() -> f32
-{
+fn app_frame_time() -> f32 {
     return g_app.frame_time;
 }
 
-auto app_frame_rate() -> f32
-{
+fn app_frame_rate() -> f32 {
     f32 av = g_app.frame_total / FPS_SAMPLES;
     return av > 0.f ? 1.f / av : 0.f;
 }
 
-auto app_av_frame_rate() -> f32
-{
+fn app_av_frame_rate() -> f32 {
     return (f32) g_app.frame_count / (f32) g_app.seconds;
 }
 
-auto app_set_time_scale(f32 scale) -> void
-{
+fn app_set_time_scale(f32 scale) -> void {
     g_app.scale = scale;
 }

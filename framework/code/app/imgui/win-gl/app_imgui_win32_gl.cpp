@@ -3,26 +3,22 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_opengl3.h"
 
-struct ImGui_Win32_GL3_State
-{
+struct {
     HWND  hwnd;
     HDC   main_hdc;
     HGLRC main_hglrc;
-};
-
-static ImGui_Win32_GL3_State g_imgui;
+} internal g_imgui;
 
 // ------------------------------------------------------
 
-static void Hook_Renderer_CreateWindow(ImGuiViewport* viewport);
-static void Hook_Renderer_DestroyWindow(ImGuiViewport* viewport);
-static void Hook_Platform_RenderWindow(ImGuiViewport* viewport, void*);
-static void Hook_Renderer_SwapBuffers(ImGuiViewport* viewport, void*);
+static void hook_create_window(ImGuiViewport* viewport);
+static void hook_destroy_window(ImGuiViewport* viewport);
+static void hook_render_window(ImGuiViewport* viewport, void*);
+static void hook_swap_buffers(ImGuiViewport* viewport, void*);
 
 // ------------------------------------------------------
 
-auto app_imgui_init_win32_gl(HWND hwnd, HDC hdc, HGLRC hglrc) -> void
-{
+fn app_imgui_init_win32_gl(HWND hwnd, HDC hdc, HGLRC hglrc) -> void {
     g_imgui.hwnd = hwnd;
     g_imgui.main_hdc = hdc;
     g_imgui.main_hglrc = hglrc;
@@ -63,29 +59,26 @@ auto app_imgui_init_win32_gl(HWND hwnd, HDC hdc, HGLRC hglrc) -> void
     {
         ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
 
-        platform_io.Renderer_CreateWindow  = Hook_Renderer_CreateWindow;
-        platform_io.Renderer_DestroyWindow = Hook_Renderer_DestroyWindow;
-        platform_io.Renderer_SwapBuffers   = Hook_Renderer_SwapBuffers;
-        platform_io.Platform_RenderWindow  = Hook_Platform_RenderWindow;
+        platform_io.Renderer_CreateWindow  = hook_create_window;
+        platform_io.Renderer_DestroyWindow = hook_destroy_window;
+        platform_io.Renderer_SwapBuffers   = hook_swap_buffers;
+        platform_io.Platform_RenderWindow  = hook_render_window;
     }
 }
 
-auto app_imgui_done_win32_gl() -> void
-{    
+fn app_imgui_done_win32_gl() -> void {    
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
 }
 
-auto app_imgui_begin_win32_gl() -> void
-{
+fn app_imgui_begin_win32_gl() -> void {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 }
 
-auto app_imgui_end_win32_gl() -> void
-{
+fn app_imgui_end_win32_gl() -> void {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -101,14 +94,13 @@ auto app_imgui_end_win32_gl() -> void
 
 // ------------------------------------------------------
 
-struct WGL_WindowData
-{
+struct WGL_WindowData {
     HDC   hDC;
     HGLRC hRC;
 };
 
-static void SetupPixelFormat(HDC hdc)
-{
+internal fn setup_pixel_format(HDC hdc) -> void {
+
     PIXELFORMATDESCRIPTOR pfd = {};
     pfd.nSize = sizeof(pfd);
     pfd.nVersion = 1;
@@ -129,14 +121,13 @@ static void SetupPixelFormat(HDC hdc)
     IM_ASSERT(ok);
 }
 
-static void Hook_Renderer_CreateWindow(ImGuiViewport* viewport)
-{
+internal fn hook_create_window(ImGuiViewport* viewport) -> void {
     IM_ASSERT(viewport->RendererUserData == nullptr);
 
     auto* data = IM_NEW(WGL_WindowData);
     data->hDC = GetDC((HWND)viewport->PlatformHandle);
 
-    SetupPixelFormat(data->hDC);
+    setup_pixel_format(data->hDC);
 
     data->hRC = wglCreateContext(data->hDC);
     wglShareLists(g_imgui.main_hglrc, data->hRC);
@@ -145,8 +136,7 @@ static void Hook_Renderer_CreateWindow(ImGuiViewport* viewport)
     viewport->RendererUserData = data;
 }
 
-static void Hook_Renderer_DestroyWindow(ImGuiViewport* viewport)
-{
+internal fn hook_destroy_window(ImGuiViewport* viewport) -> void {
     if (!viewport->RendererUserData)
         return;
 
@@ -160,14 +150,12 @@ static void Hook_Renderer_DestroyWindow(ImGuiViewport* viewport)
     viewport->RendererUserData = nullptr;
 }
 
-static void Hook_Platform_RenderWindow(ImGuiViewport* viewport, void*)
-{
+internal fn hook_render_window(ImGuiViewport* viewport, void*) -> void {
     if (auto* data = (WGL_WindowData*)viewport->RendererUserData)
         wglMakeCurrent(data->hDC, data->hRC);
 }
 
-static void Hook_Renderer_SwapBuffers(ImGuiViewport* viewport, void*)
-{
+internal fn hook_swap_buffers(ImGuiViewport* viewport, void*) -> void {
     if (auto* data = (WGL_WindowData*)viewport->RendererUserData)
         SwapBuffers(data->hDC);
 }

@@ -7,8 +7,8 @@
 #   include "app_imgui_win32_gl.h"
 #endif
 
-auto app_imgui_init(const IWindow& window) -> void
-{
+fn app_imgui_init(const IWindow& window) -> void {
+
 #if defined(GAME_WIN) && defined(GAME_GL)
         HGLRC hglrc = wglGetCurrentContext();
         HDC hdc = wglGetCurrentDC();
@@ -17,29 +17,29 @@ auto app_imgui_init(const IWindow& window) -> void
 #endif
 }
 
-auto app_imgui_done() -> void
-{
+fn app_imgui_done() -> void {
+
 #if defined(GAME_WIN) && defined(GAME_GL)
     app_imgui_done_win32_gl();
 #endif
 }
 
-auto app_imgui_begin() -> void
-{
+fn app_imgui_begin() -> void {
+
 #if defined(GAME_WIN) && defined(GAME_GL)
     app_imgui_begin_win32_gl();
 #endif
 }
 
-auto app_imgui_end() -> void
-{
+fn app_imgui_end() -> void {
+
 #if defined(GAME_WIN) && defined(GAME_GL)
     app_imgui_end_win32_gl();
 #endif
 } 
 
-auto app_imgui_force_save_ini() -> void
-{
+fn app_imgui_force_save_ini() -> void {
+
     ImGui::SaveIniSettingsToDisk(ImGui::GetIO().IniFilename); // @Note: Manually save the file.
     ImGui::GetIO().IniFilename = nullptr; // @Note: Prevent ImGui to save the file when it destroys the context.
 }

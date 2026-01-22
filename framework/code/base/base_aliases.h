@@ -1,5 +1,6 @@
 #pragma once
 
+#define fn auto
 #define internal static
 
 using cstring = const char*;

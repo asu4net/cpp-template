@@ -18,17 +18,14 @@
 
 #ifdef GAME_DEBUG
     template<typename T, typename... TArgs>
-    auto _dbg_check_function(T&& expr, cstring fmt, TArgs&&... args)
-    {
-        if (!expr)
-        {
+    fn _dbg_check_function(T&& expr, cstring fmt, TArgs&&... args) {
+        if (!expr) {
             _dbg_log_function(fmt, std::forward<TArgs>(args)...);
             dbg_break();
         }
     }
     template<typename T, typename... TArgs>
-    auto _dbg_ensure_function(T&& expr, cstring fmt, TArgs&&... args) -> T&&
-    {
+    fn _dbg_ensure_function(T&& expr, cstring fmt, TArgs&&... args) -> T&& {
         _dbg_check_function(std::forward<T>(expr), fmt, std::forward<T>(args)...);
         return std::forward<T>(expr);
     }

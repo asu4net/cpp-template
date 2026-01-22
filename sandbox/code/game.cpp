@@ -2,26 +2,21 @@
 #include "imgui.h"
 #include "os_gl.h"
 
-auto main(i32 argc, cstring* argv) -> i32
-{
+fn main(i32 argc, cstring* argv) -> i32 {
     dbg_log("Hellope!");
     app_init();
 
     bool quit = false;
 
-    while (!quit)
-    {
+    while (!quit) {
         app_poll_events();
         
-        for (const auto& event: app_events_this_frame())
-        {
-            if (event.type == Input_Event::Quit)
-            {
+        for (const auto& event: app_events_this_frame()) {
+            if (event.type == Input_Event::Quit) {
                 quit = true;
                 app_imgui_force_save_ini();
             }
-            if (event.key_code == Key_Code::Escape)
-            {
+            if (event.key_code == Key_Code::Escape) {
                 quit = true;
             }
         }
