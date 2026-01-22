@@ -1,5 +1,6 @@
 
 #include "app_imgui.h"
+#include "os_window.h"
 
 #if defined(GAME_WIN) && defined(GAME_GL)
 #   include "app_imgui_win32_gl.h"

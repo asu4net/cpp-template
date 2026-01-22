@@ -1,7 +1,7 @@
 #ifdef GAME_WIN
 
-#include "win32_window.h"
-#include "win32_input.h"
+#include "os_win32_window.h"
+#include "os_win32_input.h"
 
 #define WINDOWED_STYLE           WS_OVERLAPPEDWINDOW
 #define FULLSCREEN_STYLE         WS_VISIBLE | WS_POPUP

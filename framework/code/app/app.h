@@ -1,7 +1,7 @@
 
 #pragma once
-#include "core_window.h"
-#include "core_input.h"
+#include "os_window.h"
+#include "os_input.h"
 #include "audio.h"
 #include "app_imgui.h"
 

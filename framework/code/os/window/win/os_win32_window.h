@@ -6,10 +6,11 @@
 #include <Windows.h>
 
 #ifdef GAME_GL
-#include "core_backend/win32_gl_context.h"
+#include "os_gl.h"
+#include "os_win32_gl_context.h"
 #endif
 
-#include "core_window.h"
+#include "os_window.h"
 
 class Win32_Window final : public IWindow
 {

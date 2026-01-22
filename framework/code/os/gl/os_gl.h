@@ -1,10 +1,13 @@
 #pragma once
 
-#if defined(GAME_WIN)
-#include <Windows.h>
+#if GAME_WIN
+    #define WIN32_MEAN_AND_LEAN
+    #include <Windows.h>
+    #include "GL/GL.h"
+#else
+    #error "Unsupported OS!"
 #endif
 
-#include "GL/GL.h"
 #include "glext.h"
 
 // @Note: Lets cast some X macro spells...

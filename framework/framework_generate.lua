@@ -19,15 +19,19 @@ cpp_lib_project "framework"
         "code/base",
         "code/app",
         "code/app/imgui",
-        "code/app/imgui/win32-gl",
+        "code/app/imgui/win-gl",
         "code/dbg",
         "code/load",
         "code/audio",
         "code/os",
+        "code/os/gl",
         "code/os/core",
         "code/os/core/win",
-        "code/core_backend",
-        "code/core_vendor",         
+        "code/os/window",
+        "code/os/window/win",
+        "code/os/window/win-gl",
+        "code/os/input",
+        "code/os/input/win",
     }
     
     files 

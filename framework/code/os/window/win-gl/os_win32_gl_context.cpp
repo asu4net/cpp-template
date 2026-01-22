@@ -1,11 +1,11 @@
-#include "win32_gl_context.h"
+#include "os_win32_gl_context.h"
 
 #if defined (GAME_WIN) && defined(GAME_GL)
 
-#include "core_backend/win32_window.h"
+#include "os_win32_window.h"
 
 #define GL_PROCS_NO_EXTERN
-#include "core_backend/gl_functions.h"
+#include "os_gl.h"
 #undef GL_PROCS_NO_EXTERN
 
 #include "wglext.h"

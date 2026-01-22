@@ -2,7 +2,7 @@
 
 #if defined(GAME_DEBUG) && defined(GAME_GL)
 
-#include "core_backend/gl_functions.h"
+#include "os_gl.h"
 #include "os_core.h"
 #include "imgui.h"
 
