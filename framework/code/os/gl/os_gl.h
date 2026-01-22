@@ -1,7 +1,6 @@
 #pragma once
 
 #if GAME_WIN
-    #define WIN32_MEAN_AND_LEAN
     #include <Windows.h>
     #include "GL/GL.h"
 #else

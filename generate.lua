@@ -144,6 +144,7 @@ function config_game()
 
     link_backend()
     link_framework()
+
 end
 
 include "sandbox/sandbox_generate.lua"

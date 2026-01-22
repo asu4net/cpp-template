@@ -9,7 +9,7 @@
 
 struct App_Desc
 {
-    std::string working_dir = "\\..\\..\\assets";
+    std::string working_dir = ".\\assets";
     Window_Desc window;
     Input_Desc input;
 };

@@ -10,11 +10,11 @@
 
 #include "wglext.h"
 
-static  PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB{};
-static  PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB{};
-static  PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT{};
+static PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB{};
+static PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB{};
+static PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT{};
 
-static  auto resolve_wgl_functions() -> void
+static auto resolve_wgl_functions() -> void
 {
 	// @Note: Old OpenGL context. Needed to load wgl extensions.
 	
@@ -54,7 +54,7 @@ static  auto resolve_wgl_functions() -> void
 	wglDeleteContext(context);
 }
 
-static  auto resolve_gl_proc(cstring name) -> void*
+static auto resolve_gl_proc(cstring name) -> void*
 {
 	void* p = (void*) wglGetProcAddress(name);
 
@@ -72,7 +72,7 @@ static  auto resolve_gl_proc(cstring name) -> void*
 	return p;
 }
 
-static  auto resolve_gl_functions()
+static auto resolve_gl_functions()
 {
 #define DO_RESOLVE(_SIGNATURE, _NAME) \
 	_NAME = reinterpret_cast<_SIGNATURE>(resolve_gl_proc(#_NAME));

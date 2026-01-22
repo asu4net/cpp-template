@@ -1,4 +1,7 @@
 cpp_app_project "sandbox"
+    
+    debugdir("%{wks.location}/../sandbox")
+
     --- @Note: PCH config
     pchheader ("pch.h")
     pchsource ("code/pch.cpp")

@@ -6,7 +6,6 @@
 #include <Windows.h>
 
 #ifdef GAME_GL
-#include "os_gl.h"
 #include "os_win32_gl_context.h"
 #endif
 

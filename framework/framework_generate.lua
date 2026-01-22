@@ -1,37 +1,42 @@
-framework_location = "%{wks.location}/framework/code" 
-imgui_location = "%{wks.location}/framework/3rd/imgui/src" 
+framework_location = "%{wks.location}/../framework/code" 
+imgui_location = framework_location .. "/../3rd/imgui/src" 
+imgui_backends_location = framework_location .. "/../3rd/imgui/src/backends" 
+
+framework_includedirs = {
+    framework_location,
+    framework_location .. "/base",
+    framework_location .. "/app",
+    framework_location .. "/app/imgui",
+    framework_location .. "/app/imgui/win-gl",
+    framework_location .. "/dbg",
+    framework_location .. "/load",
+    framework_location .. "/audio",
+    framework_location .. "/os",
+    framework_location .. "/os/gl",
+    framework_location .. "/os/core",
+    framework_location .. "/os/core/win",
+    framework_location .. "/os/window",
+    framework_location .. "/os/window/win",
+    framework_location .. "/os/window/win-gl",
+    framework_location .. "/os/input",
+    framework_location .. "/os/input/win",
+}
 
 cpp_lib_project "framework"
     --- @Note: PCH config
-    pchheader ("pch.h")
-    pchsource ("code/pch.cpp")
-    forceincludes ("pch.h")
+    pchheader ("framework_pch.h")
+    pchsource ("code/framework_pch.cpp")
+    forceincludes ("framework_pch.h")
     ---
     includedirs 
     {
-        "3rd/imgui/src", 
-        "3rd/imgui/src/backends",
         "3rd/miniaudio",
         "3rd/khr",
         "3rd/stb",
         "3rd/tiny_obj_loader",
-        "code",
-        "code/base",
-        "code/app",
-        "code/app/imgui",
-        "code/app/imgui/win-gl",
-        "code/dbg",
-        "code/load",
-        "code/audio",
-        "code/os",
-        "code/os/gl",
-        "code/os/core",
-        "code/os/core/win",
-        "code/os/window",
-        "code/os/window/win",
-        "code/os/window/win-gl",
-        "code/os/input",
-        "code/os/input/win",
+        imgui_location,
+        imgui_backends_location,
+        framework_includedirs,
     }
     
     files 
@@ -52,22 +57,15 @@ function use_framework()
     
     includedirs 
     { 
-        framework_location,
+        framework_includedirs,
         imgui_location,
-        imgui_location .. "/backends",
-    }
-    
-    files 
-    { 
-        framework_location .. "/**.lua",
-        framework_location .. "/**.h", 
-        framework_location .. "/**.cpp", 
+        imgui_backends_location,
     }
 end
 
 function link_framework()
 
-    links { "imgui" }
+    links { "framework", "imgui" }
     
     defines
     {

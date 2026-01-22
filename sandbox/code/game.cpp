@@ -1,4 +1,4 @@
-#include "core_platform.h"
+#include "app.h"
 
 auto main(i32 argc, cstring* argv) -> i32
 {
