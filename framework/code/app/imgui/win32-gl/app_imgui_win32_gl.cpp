@@ -1,4 +1,4 @@
-#include "win32_gl_imgui.h"
+#include "app_imgui_win32_gl.h"
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_opengl3.h"
@@ -21,7 +21,7 @@ static void Hook_Renderer_SwapBuffers(ImGuiViewport* viewport, void*);
 
 // ------------------------------------------------------
 
-void ImGui::Init_Win32_GL3(HWND hwnd, HDC hdc, HGLRC hglrc)
+auto app_imgui_init_win32_gl(HWND hwnd, HDC hdc, HGLRC hglrc) -> void
 {
     g_imgui.hwnd = hwnd;
     g_imgui.main_hdc = hdc;
@@ -70,14 +70,21 @@ void ImGui::Init_Win32_GL3(HWND hwnd, HDC hdc, HGLRC hglrc)
     }
 }
 
-void ImGui::Begin_Frame_Win32_GL3()
+auto app_imgui_done_win32_gl() -> void
+{    
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
+}
+
+auto app_imgui_begin_win32_gl() -> void
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 }
 
-void ImGui::End_Frame_Win32_GL3()
+auto app_imgui_end_win32_gl() -> void
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -90,13 +97,6 @@ void ImGui::End_Frame_Win32_GL3()
         // Restore main context
         wglMakeCurrent(g_imgui.main_hdc, g_imgui.main_hglrc);
     }
-}
-
-void ImGui::Deinit_Win32_GL3()
-{    
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplWin32_Shutdown();
-    ImGui::DestroyContext();
 }
 
 // ------------------------------------------------------

@@ -4,7 +4,6 @@
 
 #include "core_backend/gl_functions.h"
 #include "os_core.h"
-#include "core_imgui_state.h"
 #include "imgui.h"
 
 // @Note: This is not in the GL context because it's platform independent. (I guess)
@@ -53,7 +52,11 @@ struct App
     auto operator=(App&&) -> App & = default;
 
     // @Note: ....I just wanted to do this.
-    ~App() { audio_done(); }
+    ~App() 
+    { 
+        audio_done(); 
+        app_imgui_done();
+    }
 
 } g_app;
 
@@ -65,7 +68,7 @@ auto app_init(App_Desc ds) -> bool
     os_set_working_dir(ds.working_dir);
     g_app.window = IWindow::create(ds.window);
     g_app.input = IInput::create(ds.input);
-    ImGui::Init(*g_app.window);
+    app_imgui_init(*g_app.window);
     audio_init();
     g_app.is_setup = g_app.window && g_app.input;
 

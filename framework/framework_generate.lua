@@ -18,6 +18,8 @@ cpp_lib_project "framework"
         "code",
         "code/base",
         "code/app",
+        "code/app/imgui",
+        "code/app/imgui/win32-gl",
         "code/dbg",
         "code/load",
         "code/audio",

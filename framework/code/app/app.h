@@ -3,7 +3,7 @@
 #include "core_window.h"
 #include "core_input.h"
 #include "audio.h"
-#include "core_imgui_state.h"
+#include "app_imgui.h"
 
 // @Note: This file is just a C-style easy wrapper for the common stuff. You don't need to use it.
 
