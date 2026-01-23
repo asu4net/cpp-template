@@ -49,9 +49,9 @@ struct App {
 } g_app;
 
 fn app_init(App_Desc ds) -> bool {
-    if (g_app.is_init)
-        g_app = {}; // @Note: Reset the state.
-
+    if (g_app.is_init) {
+        app_done();
+    }
     os_set_working_dir(ds.working_dir);
     g_app.input = IInput::create(ds.input);
     g_app.window = IWindow::create(ds.window);
@@ -76,6 +76,7 @@ fn app_done() -> void {
         app_imgui_done();
         g_app.window.reset();
         g_app.input.reset();
+        g_app = {};
     }
 }
 
@@ -114,12 +115,12 @@ fn app_time_step() -> void {
     g_app.seconds += time_between_frames;
     g_app.frame_time = (f32) std::clamp(time_between_frames, 0.0, g_app.max_frame_time) * g_app.scale;
     g_app.acc_fixed_frame_time += g_app.frame_time;
-
+    
     while (g_app.acc_fixed_frame_time >= g_app.fixed_frame_time) {
         g_app.acc_fixed_frame_time -= g_app.fixed_frame_time;
         g_app.fixed_ticks += 1;
     }
-
+    
     g_app.frame_total -= g_app.frame_times[g_app.frame_index];
     g_app.frame_times[g_app.frame_index] = g_app.frame_time;
     g_app.frame_total += g_app.frame_time;
