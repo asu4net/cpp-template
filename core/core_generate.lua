@@ -1,27 +1,27 @@
-framework_location = "%{wks.location}/../framework/code" 
-imgui_location = framework_location .. "/../3rd/imgui/src" 
-imgui_backends_location = framework_location .. "/../3rd/imgui/src/backends" 
+core_location = "%{wks.location}/../core/code" 
+imgui_location = core_location .. "/../3rd/imgui/src" 
+imgui_backends_location = core_location .. "/../3rd/imgui/src/backends" 
 
-framework_includedirs = {
+core_includedirs = {
     imgui_location,
     imgui_backends_location,
-    framework_location,
-    framework_location .. "/**",
-    framework_location .. "/../3rd/khr",
+    core_location,
+    core_location .. "/**",
+    core_location .. "/../3rd/khr",
 }
 
-cpp_lib_project "framework"
+cpp_lib_project "core"
     --- @Note: PCH config
-    pchheader ("framework_pch.h")
-    pchsource ("code/framework_pch.cpp")
-    forceincludes ("framework_pch.h")
+    pchheader ("core_pch.h")
+    pchsource ("code/core_pch.cpp")
+    forceincludes ("core_pch.h")
     ---
     includedirs 
     {
         "3rd/miniaudio",
         "3rd/stb",
         "3rd/tiny_obj_loader",
-        framework_includedirs,
+        core_includedirs,
     }
     
     files 
@@ -32,25 +32,25 @@ cpp_lib_project "framework"
         "3rd/tiny_obj_loader/**.h", 
         "code/**.h", 
         "code/**.cpp", 
-        "framework_generate.lua" 
+        "core_generate.lua" 
     }
     
     config_base()
     defines_backend()
 
-function use_framework()
+function use_core()
     
     includedirs 
     { 
-        framework_includedirs,
+        core_includedirs,
         imgui_location,
         imgui_backends_location,
     }
 end
 
-function link_framework()
+function link_core()
 
-    links { "framework", "imgui" }
+    links { "core", "imgui" }
     
     defines
     {

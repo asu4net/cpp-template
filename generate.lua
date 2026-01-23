@@ -120,30 +120,30 @@ end
 
 --------- WORKSPACE ---------
 
-workspace "framework"
+workspace "cpp-template"
     location ".project-files"
     architecture "x64"
     configurations { "debug", "release", "dist" }
     startproject "sandbox"
 
 group "3rd"
-    include "framework/3rd/imgui/imgui_generate.lua"
+    include "core/3rd/imgui/imgui_generate.lua"
 group ""
 
 -- @Note: Our framework is just a bunch folders with the shared code.
-include "framework/framework_generate.lua"
+include "core/core_generate.lua"
 
 function config_game()
     
     files { "assets/**.glsl" }    
 
-    use_framework()
+    use_core()
     
     config_base()
     defines_backend()
 
     link_backend()
-    link_framework()
+    link_core()
 
 end
 
