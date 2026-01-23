@@ -127,7 +127,7 @@ workspace "cpp-template"
     startproject "sandbox"
 
 group "3rd"
-    include "core/3rd/imgui/imgui_generate.lua"
+    include "3rd/imgui/imgui_generate.lua"
 group ""
 
 -- @Note: Our framework is just a bunch folders with the shared code.
