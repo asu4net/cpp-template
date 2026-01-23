@@ -79,8 +79,6 @@ lnk_game_win = {
 ------------ PROJECT FUNCTIONS --------------
 ---------------------------------------------
 function config_base()
-
-
     filter {}
         defines {
             gpu_api,
@@ -132,7 +130,7 @@ function prj_app(name)
     filter "configurations:dist"
         kind "WindowedApp"
         entrypoint "mainCRTStartup"
-    filter "configurations:debug or configurations:release"
+    filter "configurations:debug"
         kind "ConsoleApp"
     filter {}
 end
