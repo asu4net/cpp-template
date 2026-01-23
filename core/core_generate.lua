@@ -1,4 +1,4 @@
-loc_core = "%{wks.location}/../core/code/" 
+loc_core = "%{wks.location}/../core/" 
 loc_3rd = "%{wks.location}/../3rd/"
 
 core_includedirs = {
@@ -6,15 +6,15 @@ core_includedirs = {
     loc_3rd .. "tiny_obj_loader",
     loc_3rd .. "khr",
     loc_3rd .. "stb",
-    loc_3rd .. "/imgui/src/",
-    loc_3rd .. "/imgui/src/backends/", 
+    loc_3rd .. "imgui/src/",
+    loc_3rd .. "imgui/src/backends/", 
     loc_core,
     loc_core .. "**",
 }
 
 cpp_lib_project "core"
     pchheader ("core_pch.h")
-    pchsource ("code/core_pch.cpp")
+    pchsource ("core_pch.cpp")
     forceincludes ("core_pch.h")
     includedirs(core_includedirs)
     
