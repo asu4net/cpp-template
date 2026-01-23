@@ -16,7 +16,7 @@ loc_bin   = loc_this .. ".bin/%{prj.name}/%{cfg.buildcfg}"
 loc_int   = loc_this .. ".bin-int/%{prj.name}/%{cfg.buildcfg}"
 loc_core  = loc_this .. "core/" 
 loc_3rd   = loc_this .. "3rd/"
-loc_imgui = loc_3rd .. "imgui/"
+loc_imgui = loc_3rd  .. "imgui/"
 
 -- @Note: Include dirs:
 
