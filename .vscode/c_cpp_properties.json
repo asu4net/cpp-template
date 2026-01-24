@@ -3,12 +3,13 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/engine/src",
-                "${workspaceFolder}/game/src"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/**"
             ],
             "defines": [
-                "PFM_DEBUG",
-                "GAME_GL",
+                "GAME_DEBUG",
+                "GAME_GL", 
+                "GAME_WIN",
                 "WIN32",
                 "_WINDOWS",
                 "_UNICODE",
@@ -17,8 +18,8 @@
             "compilerPath": "cl.exe",
             "intelliSenseMode": "msvc-x64",
             "forcedInclude": [
-                "${workspaceFolder}/engine/src/engine_pch.h",
-                "${workspaceFolder}/game/src/game_pch.h"
+                "${workspaceFolder}/core/core_pch.h",
+                "${workspaceFolder}/sandbox/pch.h"
             ]
         }
     ],
