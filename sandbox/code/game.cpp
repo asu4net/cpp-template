@@ -1,5 +1,3 @@
-#include "os_gl.h"
-
 fn main(i32 argc, cstring* argv) -> i32 {
     dbg_log("Hellope!");
     app_init();
@@ -7,7 +5,6 @@ fn main(i32 argc, cstring* argv) -> i32 {
     while (app_running()) {
         
         glClear(GL_COLOR_BUFFER_BIT);
-        // Draw frame.
 
         #if GAME_DEBUG
         imgui_frame_init();
@@ -20,7 +17,7 @@ fn main(i32 argc, cstring* argv) -> i32 {
         imgui_frame_done();
         #endif
         
-        app_swap_buffers();
+        os_swap_buffers();
     }
     
     app_done();

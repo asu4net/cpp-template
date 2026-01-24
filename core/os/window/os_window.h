@@ -18,6 +18,11 @@ struct Window_Desc
     Vector3 bg_color = Color::Chill_Green;
 };
 
+fn os_window_init(Window_Desc ds) -> bool;
+fn os_window_done() -> void;
+fn os_window() -> class IWindow&;
+fn os_swap_buffers(bool vsync = true) -> void;
+
 class IWindow
 {
 public:

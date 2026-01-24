@@ -114,6 +114,12 @@ struct Input_Event
     i32 mouse_delta_y = 0;
 };
 
+fn os_input_init(const Input_Desc& ds) -> bool;
+fn os_input_done() -> void;
+fn os_poll_events() -> void;
+fn os_events_this_frame() -> const std::vector<Input_Event>&;
+fn os_key_down(u32 key_code) -> bool;
+fn os_set_cursor_mode(Cursor_Mode mode) -> void;
 
 class IInput
 {

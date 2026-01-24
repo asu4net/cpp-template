@@ -26,9 +26,6 @@ internal fn APIENTRY _gl_debug_callback(
 struct App {
     bool is_init = false;
     bool quit = false;
-    // @Note: Os stuff (pending to remove OOP).
-    IWindow::Ptr window;
-    IInput::Ptr input;
 } g_app;
 
 fn app_init(App_Desc ds) -> bool {
@@ -38,12 +35,11 @@ fn app_init(App_Desc ds) -> bool {
     }
     
     os_set_working_dir(ds.working_dir);
-    
-    g_app.input = IInput::create(ds.input);
-    g_app.window = IWindow::create(ds.window);
+    os_input_init(ds.input);
+    os_window_init(ds.window);
     
     if (ds.init_imgui) {
-        imgui_init(*g_app.window);
+        imgui_init(os_window());
     }
     
     audio_init();
@@ -68,8 +64,8 @@ fn app_done() -> void {
 
     audio_done();
     imgui_done();
-    g_app.window.reset();
-    g_app.input.reset();
+    os_window_done();
+    os_input_done();
     g_app = {};
 }
 
@@ -82,10 +78,10 @@ fn app_running() -> bool {
         }
     };
 
-    g_app.input->poll_events();
+    os_poll_events();
     time_step();
 
-    for (const auto& event: app_events_this_frame()) {
+    for (const auto& event: os_events_this_frame()) {
         if (event.type == Input_Event::Quit) {
             quit();    
         }
@@ -96,20 +92,4 @@ fn app_running() -> bool {
         #endif      
     }
     return !g_app.quit;
-}
-
-fn app_swap_buffers(bool vsync) -> void {
-    g_app.window->present(vsync);
-}
-
-fn app_events_this_frame() -> const std::vector<Input_Event>& {
-    return g_app.input->events_this_frame();
-}
-
-fn app_key_down(u32 key_code) -> bool {
-    return g_app.input->key_down(key_code);
-}
-
-fn app_set_cursor_mode(Cursor_Mode mode) -> void {
-    g_app.input->set_cursor_mode(mode);
 }

@@ -14,3 +14,26 @@ auto IWindow::create(const Window_Desc& ds) -> Ptr
     return nullptr;
 #endif
 }
+
+
+IWindow::Ptr g_window;
+
+fn os_window_init(Window_Desc ds) -> bool {   
+    if (g_window) {
+        os_window_done();
+    }
+    g_window = IWindow::create(ds);
+    return true;
+}
+
+fn os_window_done() -> void {
+    g_window.reset();
+}
+
+fn os_window() -> IWindow& {
+    return *g_window.get();
+}
+
+fn os_swap_buffers(bool vsync) -> void {
+    g_window->present(vsync);
+}
