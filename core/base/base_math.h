@@ -4,202 +4,212 @@
 // @Region: Common f32 stuff.
 // =========================================
 
-namespace Math
-{
-    inline constexpr f32 DEGREES_TO_RADIANS_FACTOR = 0.0174533f;
-    inline constexpr f32 RADIANS_TO_DEGREES_FACTOR = 57.2958f;
-    inline constexpr f32 PI = 3.14159265358979323846f;
-    inline constexpr f32 F32_EPSILON = 1.192092896e-07F; // smallest such that 1.0+FLT_EPSILON != 1.0
+struct _F32 {
 
-    inline f32 to_radians(f32 degrees) { return degrees * DEGREES_TO_RADIANS_FACTOR; }
-    inline f32 to_degrees(f32 radians) { return radians * RADIANS_TO_DEGREES_FACTOR; }
-}
+    f32 Max = 3.40282347e+38f;
+    f32 Min = -3.40282347e+38f;
+    f32 Radians_In_Dregree = 0.0174533f;
+    f32 Degrees_In_Radian = 57.2958f;
+    f32 PI = 3.14159265358979323846f;
+    f32 Epsilon = 1.192092896e-07F; // smallest such that 1.0+FLT_EPSILON != 1.0
+    
+    f32 Zero  [3] = { 0.f, 0.f, 0.f };
+    f32 One   [3] = { 1.f, 1.f, 1.f };
+    f32 Right [3] = { 1.f, 0.f, 0.f };
+    f32 Left  [3] = {-1.f, 0.f, 0.f };
+    f32 Up    [3] = { 0.f, 1.f, 0.f };
+    f32 Down  [3] = { 0.f,-1.f, 0.f };
+    f32 Front [3] = { 0.f, 0.f, 1.f };
+    f32 Back  [3] = { 0.f, 0.f,-1.f };
+
+    constexpr f32 to_radians(f32 degrees) const { return degrees * Radians_In_Dregree; }
+    constexpr f32 to_degrees(f32 radians) const { return radians * Degrees_In_Radian; }
+};
+
+struct _F64 {
+    f64 Max = 1.7976931348623157e+308;
+    f64 Min = -1.7976931348623157e+308;
+};
+
+struct _I32 {
+    i32 Max = 2147483647i32;
+    i32 Min = -2147483647i32 - 1;
+};
+
+struct _U32 {
+    u32 Max = 0xffffffffui32;
+};
+
+inline static constexpr _F64 F64;
+inline static constexpr _F32 F32;
+inline static constexpr _U32 U32;
+inline static constexpr _I32 I32;
 
 // =========================================
 // @Region: Vector2
 // =========================================
 
-class Vector2 {
+class Vec2 {
 public:
     // @Note: Returns how much a goes in the direction of b. (0 -> perpendicular)
-    static fn dot(const Vector2& a, const Vector2& b) -> f32;
+    static fn dot(const Vec2& a, const Vec2& b) -> f32;
     // @Note: Returns the euclidean (real) distance between to points.
-    static fn distance(const Vector2& a, const Vector2& b) -> f32;
+    static fn distance(const Vec2& a, const Vec2& b) -> f32;
     // @Note: Same as distance but without the std::sqrt. std::sqrt is a heavy operation, this is useful for comparisons.
-    static fn sqrt_distance(const Vector2& a, const Vector2& b) -> f32;
+    static fn sqrt_distance(const Vec2& a, const Vec2& b) -> f32;
     
-    constexpr Vector2() : x(0), y(0) {}
-    constexpr Vector2(f32 x, f32 y) : x(x), y(y) {}
+    constexpr Vec2() : x(0), y(0) {}
+    constexpr Vec2(f32 x, f32 y) : x(x), y(y) {}
+    constexpr Vec2(const f32 (&b)[2]) : x(b[0]), y(b[1]) {}
+    constexpr Vec2(const f32 (&b)[3]) : x(b[0]), y(b[1]) {}
     
-    fn operator==(const Vector2& b) const -> bool;
-    fn operator!=(const Vector2& b) const -> bool;
+    fn operator==(const Vec2& b) const -> bool;
+    fn operator!=(const Vec2& b) const -> bool;
 
-    fn operator+(const Vector2& b) const -> Vector2;
-    fn operator-(const Vector2& b) const -> Vector2;
+    fn operator+(const Vec2& b) const -> Vec2;
+    fn operator-(const Vec2& b) const -> Vec2;
     
-    fn operator+=(const Vector2& b) -> Vector2&;
-    fn operator-=(const Vector2& b) -> Vector2&;
+    fn operator+=(const Vec2& b) -> Vec2&;
+    fn operator-=(const Vec2& b) -> Vec2&;
     
-    fn operator*(const Vector2& b) const -> Vector2;
-    fn operator/(const Vector2& b) const -> Vector2;
+    fn operator*(const Vec2& b) const -> Vec2;
+    fn operator/(const Vec2& b) const -> Vec2;
     
-    fn operator*=(const Vector2& b) -> Vector2&;
-    fn operator/=(const Vector2& b) -> Vector2&;
+    fn operator*=(const Vec2& b) -> Vec2&;
+    fn operator/=(const Vec2& b) -> Vec2&;
 
-    fn operator*(f32 b) const->Vector2;
-    fn operator/(f32 b) const->Vector2;
+    fn operator*(f32 b) const->Vec2;
+    fn operator/(f32 b) const->Vec2;
 
-    fn operator*=(f32 b) -> Vector2&;
-    fn operator/=(f32 b) -> Vector2&;
+    fn operator*=(f32 b) -> Vec2&;
+    fn operator/=(f32 b) -> Vec2&;
 
     fn lenght() const -> f32;
-    fn normalized() const -> Vector2;
+    fn normalized() const -> Vec2;
 
-    fn radians() const -> Vector2;
-    fn degrees() const -> Vector2;
+    fn radians() const -> Vec2;
+    fn degrees() const -> Vec2;
     
     f32 x, y;
 };
-
-namespace Math {
-    inline static constexpr Vector2 Zero2D   { 0.f, 0.f };
-    inline static constexpr Vector2 One2D    { 1.f, 1.f };
-    inline static constexpr Vector2 Right2D  { 1.f, 0.f };
-    inline static constexpr Vector2 Left2D   {-1.f, 0.f };
-    inline static constexpr Vector2 Up2D     { 0.f, 1.f };
-    inline static constexpr Vector2 Down2D   { 0.f,-1.f };
-}
 
 // =========================================
 // @Region: Vector3
 // =========================================
 
-class Vector3 {
+class Vec3 {
 public:    
     // @Note: Returns how much a goes in the direction of b. (0 -> perpendicular)
-    static fn dot(const Vector3& a, const Vector3& b) -> f32;
+    static fn dot(const Vec3& a, const Vec3& b) -> f32;
     // @Note: Returns a perpendicular vector to the (a, b) plane.
-    static fn cross(const Vector3& a, const Vector3& b) -> Vector3;
+    static fn cross(const Vec3& a, const Vec3& b) -> Vec3;
     // @Note: Returns the euclidean (real) distance between to points.
-    static fn distance(const Vector3& a, const Vector3& b) -> f32;
+    static fn distance(const Vec3& a, const Vec3& b) -> f32;
     // @Note: Same as distance but without the std::sqrt. std::sqrt is a heavy operation, this is useful for comparisons.
-    static fn sqrt_distance(const Vector3& a, const Vector3& b) -> f32;
+    static fn sqrt_distance(const Vec3& a, const Vec3& b) -> f32;
     
-    constexpr Vector3() : x(0), y(0), z(0) {}
-    constexpr Vector3(f32 x, f32 y, f32 z) : x(x), y(y), z(z) {}
-    constexpr Vector3(const f32(&b) [3]) : x(b[0]), y(b[1]), z(b[2]) {}
-    constexpr Vector3(const f32(&b) [4]) : x(b[0]), y(b[1]), z(b[2]) {}
+    constexpr Vec3() : x(0), y(0), z(0) {}
+    constexpr Vec3(f32 x, f32 y, f32 z) : x(x), y(y), z(z) {}
+    constexpr Vec3(const f32(&b) [2]) : x(b[0]), y(b[1]), z(0) {}
+    constexpr Vec3(const f32(&b) [3]) : x(b[0]), y(b[1]), z(b[2]) {}
+    constexpr Vec3(const f32(&b) [4]) : x(b[0]), y(b[1]), z(b[2]) {}
 
-    fn operator==(const Vector3& b) const -> bool;
-    fn operator!=(const Vector3& b) const -> bool;
+    fn operator==(const Vec3& b) const -> bool;
+    fn operator!=(const Vec3& b) const -> bool;
 
-    fn operator+(const Vector3& b) const -> Vector3;
-    fn operator-(const Vector3& b) const -> Vector3;
+    fn operator+(const Vec3& b) const -> Vec3;
+    fn operator-(const Vec3& b) const -> Vec3;
     
-    fn operator+=(const Vector3& b) -> Vector3&;
-    fn operator-=(const Vector3& b) -> Vector3&;
+    fn operator+=(const Vec3& b) -> Vec3&;
+    fn operator-=(const Vec3& b) -> Vec3&;
     
-    fn operator*(const Vector3& b) const -> Vector3;
-    fn operator/(const Vector3& b) const -> Vector3;
+    fn operator*(const Vec3& b) const -> Vec3;
+    fn operator/(const Vec3& b) const -> Vec3;
     
-    fn operator*=(const Vector3& b) -> Vector3&;
-    fn operator/=(const Vector3& b) -> Vector3&;
+    fn operator*=(const Vec3& b) -> Vec3&;
+    fn operator/=(const Vec3& b) -> Vec3&;
     
-    fn operator*(f32 b) const -> Vector3;
-    fn operator/(f32 b) const -> Vector3;
+    fn operator*(f32 b) const -> Vec3;
+    fn operator/(f32 b) const -> Vec3;
 
-    fn operator*=(f32 b) -> Vector3&;
-    fn operator/=(f32 b) -> Vector3&;
+    fn operator*=(f32 b) -> Vec3&;
+    fn operator/=(f32 b) -> Vec3&;
     
     fn lenght() const -> f32;
-    fn normalized() const -> Vector3;
+    fn normalized() const -> Vec3;
     
-    fn radians() const -> Vector3;
-    fn degrees() const -> Vector3;
+    fn radians() const -> Vec3;
+    fn degrees() const -> Vec3;
 
     f32 x, y, z;
 };
 
-namespace Math {
-    inline static constexpr Vector3 Zero3D   { 0.f, 0.f, 0.f };
-    inline static constexpr Vector3 One3D    { 1.f, 1.f, 1.f };
-    inline static constexpr Vector3 Right3D  { 1.f, 0.f, 0.f };
-    inline static constexpr Vector3 Left3D   {-1.f, 0.f, 0.f };
-    inline static constexpr Vector3 Up3D     { 0.f, 1.f, 0.f };
-    inline static constexpr Vector3 Down3D   { 0.f,-1.f, 0.f };
-    inline static constexpr Vector3 Front3D  { 0.f, 0.f, 1.f };
-    inline static constexpr Vector3 Back3D   { 0.f, 0.f,-1.f };
-}
-
-class Matrix4;
+class Mat4;
 
 // =========================================
 // @Region: Vector4
 // =========================================
 
-class Vector4 {
+class Vec4 {
 public:
     // @Note: Returns how much a goes in the direction of b. (0 -> perpendicular)
-    static fn dot(const Vector4& a, const Vector4& b) -> f32;
+    static fn dot(const Vec4& a, const Vec4& b) -> f32;
     
-    constexpr Vector4() : x(0), y(0), z(0), w(0) {}
-    constexpr Vector4(f32 x, f32 y, f32 z, f32 w) : x(x), y(y), z(z), w(w) {}
-    constexpr Vector4(const f32(&b) [4]) : x(b[0]), y(b[1]), z(b[2]), w(b[3]) {}
+    constexpr Vec4() : x(0), y(0), z(0), w(0) {}
+    constexpr Vec4(f32 x, f32 y, f32 z, f32 w) : x(x), y(y), z(z), w(w) {}
+    constexpr Vec4(const f32(&b) [4]) : x(b[0]), y(b[1]), z(b[2]), w(b[3]) {}
 
-    fn operator==(const Vector4& b) const -> bool;
-    fn operator!=(const Vector4& b) const -> bool;
+    fn operator==(const Vec4& b) const -> bool;
+    fn operator!=(const Vec4& b) const -> bool;
 
-    fn operator+(const Vector4& b) const -> Vector4;
-    fn operator-(const Vector4& b) const -> Vector4;
+    fn operator+(const Vec4& b) const -> Vec4;
+    fn operator-(const Vec4& b) const -> Vec4;
     
-    fn operator+=(const Vector4& b) -> Vector4&;
-    fn operator-=(const Vector4& b) -> Vector4&;
+    fn operator+=(const Vec4& b) -> Vec4&;
+    fn operator-=(const Vec4& b) -> Vec4&;
     
-    fn operator*(const Vector4& b) const -> Vector4;
-    fn operator*(const Matrix4& m) const -> Vector4;
-    fn operator/(const Vector4& b) const -> Vector4;
+    fn operator*(const Vec4& b) const -> Vec4;
+    fn operator*(const Mat4& m) const -> Vec4;
+    fn operator/(const Vec4& b) const -> Vec4;
     
-    fn operator*=(const Vector4& b) -> Vector4&;
-    fn operator/=(const Vector4& b) -> Vector4&;
+    fn operator*=(const Vec4& b) -> Vec4&;
+    fn operator/=(const Vec4& b) -> Vec4&;
     
     fn lenght() const -> f32;
-    fn normalized() const -> Vector4;
+    fn normalized() const -> Vec4;
     
     f32 x, y, z, w;
 };
 
-namespace Color {
-    inline static constexpr f32 White            [] { 1.f, 1.f, 1.f, 1.f };
-    inline static constexpr f32 White_Faded      [] { 1.f, 1.f, 1.f, 0.f };
-    inline static constexpr f32 Black            [] { 0.f, 0.f, 0.f, 1.f };
-    inline static constexpr f32 Corn_Flower_Blue [] { .388f, .584f, .933f, 1.f };
-    inline static constexpr f32 Blue             [] { 0.f, 0.f, 1.f, 1.f };
-    inline static constexpr f32 Light_Blue       [] { .3f, .3f, 1.f, 1.f };
-    inline static constexpr f32 Cyan             [] { 0.f, 1.f, 1.f, 1.f };
-    inline static constexpr f32 Gray             [] { .5f, .5f, .5f, 1.f };
-    inline static constexpr f32 Dark_Gray        [] { .2f, .2f, .2f, 1.f };
-    inline static constexpr f32 Green            [] { 0.f, 1.f, 0.f, 1.f };
-    inline static constexpr f32 Light_Green      [] { .3f, 1.f, .3f, 1.f };
-    inline static constexpr f32 Chill_Green      [] {0.0471f, 0.6510f, 0.4078f, 1.f };
-    inline static constexpr f32 Magenta          [] { 1.f, 0.f, 1.f, 1.f };
-    inline static constexpr f32 Red              [] { 1.f, 0.f, 0.f, 1.f };
-    inline static constexpr f32 Light_Red        [] { 1.f, .3f, .3f, 1.f };
-    inline static constexpr f32 Yellow           [] { 1.f, .92f, .016f, 1.f };
-    inline static constexpr f32 Orange           [] { .97f, .60f, .11f, 1.f };
-}
+struct _Color {
+    f32 White            [4] = { 1.f, 1.f, 1.f, 1.f };
+    f32 White_Faded      [4] = { 1.f, 1.f, 1.f, 0.f };
+    f32 Black            [4] = { 0.f, 0.f, 0.f, 1.f };
+    f32 Corn_Flower_Blue [4] = { .388f, .584f, .933f, 1.f };
+    f32 Blue             [4] = { 0.f, 0.f, 1.f, 1.f };
+    f32 Light_Blue       [4] = { .3f, .3f, 1.f, 1.f };
+    f32 Cyan             [4] = { 0.f, 1.f, 1.f, 1.f };
+    f32 Gray             [4] = { .5f, .5f, .5f, 1.f };
+    f32 Dark_Gray        [4] = { .2f, .2f, .2f, 1.f };
+    f32 Green            [4] = { 0.f, 1.f, 0.f, 1.f };
+    f32 Light_Green      [4] = { .3f, 1.f, .3f, 1.f };
+    f32 Chill_Green      [4] = {0.0471f, 0.6510f, 0.4078f, 1.f };
+    f32 Magenta          [4] = { 1.f, 0.f, 1.f, 1.f };
+    f32 Red              [4] = { 1.f, 0.f, 0.f, 1.f };
+    f32 Light_Red        [4] = { 1.f, .3f, .3f, 1.f };
+    f32 Yellow           [4] = { 1.f, .92f, .016f, 1.f };
+    f32 Orange           [4] = { .97f, .60f, .11f, 1.f };
+};
 
-namespace Math {
-    inline static constexpr Vector4 Zero4D  { 0.f, 0.f, 0.f, 0.f };
-    inline static constexpr Vector4 One4D   { 1.f, 1.f, 1.f, 1.f };
-}
+inline static constexpr _Color Color;
 
 // =========================================
 // @Region: Matrix4
 // =========================================
 
-class Vector3;
-class Vector4;
-class Quaternion;
+class Vec3;
+class Vec4;
+class Quat;
 
 //@Pending: 
 // - Matrix4::decompose, 
@@ -207,35 +217,35 @@ class Quaternion;
 // - Matrix4::screen_to_world
 // - Matrix4::world_to_screen
 
-class Matrix4 {
+class Mat4 {
 public:
-    static fn from_quaternion(const Quaternion& q) -> Matrix4;
+    static fn from_quaternion(const Quat& q) -> Mat4;
 
     // @Note: Transformations. 
-    static fn translate(const Vector3& t) -> Matrix4;
-    static fn scale(const Vector3& s) -> Matrix4;
-    static fn rotate(const Quaternion& r) -> Matrix4;
-    static fn rotate(const Vector3& r) -> Matrix4;
-    static fn transform(const Vector3& t, const Vector3& r = Math::Zero3D, const Vector3& s = Math::One3D) -> Matrix4;
+    static fn translate(const Vec3& t) -> Mat4;
+    static fn scale(const Vec3& s) -> Mat4;
+    static fn rotate(const Quat& r) -> Mat4;
+    static fn rotate(const Vec3& r) -> Mat4;
+    static fn transform(const Vec3& t, const Vec3& r = F32.Zero, const Vec3& s = F32.One) -> Mat4;
 
     // @Note: Swap rows & columns.
-    static fn transpose(const Matrix4& a) -> Matrix4;
+    static fn transpose(const Mat4& a) -> Mat4;
     // @Note: Reverts the operation. Ex: Prev M -> Transformed M | Prev M = Transformed M-1
-    static fn inverse(const Matrix4& a) -> Matrix4;
+    static fn inverse(const Mat4& a) -> Mat4;
     // @Note: Mesures volume's scale, check mirrored, if returns 0 inverse does not exist.
-    static fn determinant(const Matrix4& a) -> f32;
+    static fn determinant(const Mat4& a) -> f32;
     
     // @Note: RH (Right Handed): Negative Z goes forward. (OpenGL)
     // NO (Negative One to One): Depth values are normalized between -1 and 1.
     // ------------------------
-    static fn view(const Vector3& p, const Quaternion& r) -> Matrix4;
-    static fn orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Matrix4;
-    static fn orthographic(f32 aspect, f32 size, f32 n, f32 f) -> Matrix4;
-    static fn perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Matrix4;
+    static fn view(const Vec3& p, const Quat& r) -> Mat4;
+    static fn orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Mat4;
+    static fn orthographic(f32 aspect, f32 size, f32 n, f32 f) -> Mat4;
+    static fn perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Mat4;
     // ------------------------
     // @Pending: Do the LH version.
 
-    constexpr Matrix4()
+    constexpr Mat4()
         : _11(0.f), _12(0.f), _13(0.f), _14(0.f)
         , _21(0.f), _22(0.f), _23(0.f), _24(0.f)
         , _31(0.f), _32(0.f), _33(0.f), _34(0.f)
@@ -243,7 +253,7 @@ public:
     {
     }
 
-    constexpr Matrix4(
+    constexpr Mat4(
           f32 _11, f32 _12, f32 _13, f32 _14
         , f32 _21, f32 _22, f32 _23, f32 _24
         , f32 _31, f32 _32, f32 _33, f32 _34
@@ -256,13 +266,13 @@ public:
     {
     }
 
-    fn operator==(const Matrix4& b) const -> bool;
-    fn operator!=(const Matrix4& b) const -> bool;
+    fn operator==(const Mat4& b) const -> bool;
+    fn operator!=(const Mat4& b) const -> bool;
 
-    fn operator*(const Matrix4& b) const -> Matrix4;
-    fn operator*=(const Matrix4& b) -> Matrix4&;
+    fn operator*(const Mat4& b) const -> Mat4;
+    fn operator*=(const Mat4& b) -> Mat4&;
     
-    fn operator*(const Vector4& v) const -> Vector4;
+    fn operator*(const Vec4& v) const -> Vec4;
 
     fn data() -> f32*;
     
@@ -273,59 +283,53 @@ public:
     f32 _41, _42, _43, _44;
 };
 
-namespace Math {
-    inline static constexpr Matrix4 ZeroM4 {
+struct _Mat {
+    Mat4 Zero4  = {
         0.f, 0.f, 0.f, 0.f, 
         0.f, 0.f, 0.f, 0.f,
         0.f, 0.f, 0.f, 0.f,
         0.f, 0.f, 0.f, 0.f 
     };
-
-    inline static constexpr Matrix4 IdentityM4 {
+    Mat4 Identity4 = {
         1.f, 0.f, 0.f, 0.f, 
         0.f, 1.f, 0.f, 0.f,
         0.f, 0.f, 1.f, 0.f,
         0.f, 0.f, 0.f, 1.f 
     };
-}
+};
+
+inline static constexpr _Mat Mat;
 
 // =========================================
 // @Region: Quaternion
 // =========================================
 
-class Matrix4;
-class Vector4;
-class Vector3;
+class Mat4;
+class Vec4;
+class Vec3;
 
-class Quaternion {
+class Quat {
 public:
     // @Note: Rotates n radians in axis direction.
-    static fn from_axis_angle(const Vector3& axis, f32 rad) -> Quaternion;
+    static fn from_axis_angle(const Vec3& axis, f32 rad) -> Quat;
     // @Note: Rotates using a classic vector (it takes radians).
-    static fn from_euler_angles(const Vector3& r) -> Quaternion;
+    static fn from_euler_angles(const Vec3& r) -> Quat;
 
-    constexpr Quaternion() : x(0), y(0), z(0), w(0) {}
-    constexpr Quaternion(f32 x, f32 y, f32 z, f32 w) : x(x), y(y), z(z), w(w) {}
+    constexpr Quat() : x(0), y(0), z(0), w(0) {}
+    constexpr Quat(f32 x, f32 y, f32 z, f32 w) : x(x), y(y), z(z), w(w) {}
 
-    fn operator==(const Quaternion& b) const -> bool;
-    fn operator!=(const Quaternion& b) const -> bool;
+    fn operator==(const Quat& b) const -> bool;
+    fn operator!=(const Quat& b) const -> bool;
 
-    fn operator*(const Quaternion& b) const -> Quaternion;
-    fn operator*=(const Quaternion& b) -> Quaternion&;
+    fn operator*(const Quat& b) const -> Quat;
+    fn operator*=(const Quat& b) -> Quat&;
     
     fn lenght() const -> f32;
-    fn normalized() const -> Quaternion;
+    fn normalized() const -> Quat;
     
     // @Note: This represents a normalized dir (x, y, z) and an angle (w) (in radians).
     f32 x, y, z, w;
 };
-
-namespace Math {
-    inline static constexpr Quaternion ZeroQ     { 0.f, 0.f, 0.f, 0.f };
-    inline static constexpr Quaternion IdentityQ { 0.f, 0.f, 0.f, 1.f };
-}
-
-
 
 class Camera;
 
@@ -345,8 +349,8 @@ public:
     fn move_up(f32 dt) -> void;
     fn move_down(f32 dt) -> void;
     fn rotate(f32 dx, f32 dy) -> void;
-    fn forward() const -> Vector3;
-    fn right() const -> Vector3;
+    fn forward() const -> Vec3;
+    fn right() const -> Vec3;
     
     f32 speed = 40.f;
     f32 sensivity = 0.1f;
@@ -373,7 +377,7 @@ public:
         // @Note: Default values for 3D.
         if (mode == Mode::Perspective)
         {
-            pos = Math::Front3D * 40.f;
+            pos = Vec3(F32.Front) * 40.f;
             near_plane = 0.1f;
             far_plane = 100.f;
             fov = 60;
@@ -393,12 +397,12 @@ public:
     Camera() = default;
     ~Camera() = default;
 
-    fn matrix() const -> Matrix4 { return m_matrix; }
+    fn matrix() const -> Mat4 { return m_matrix; }
     fn update_matrix(i32 viewport_x, i32 viewport_y) -> void;
 
     Mode mode = Mode::None;
-    Vector3 pos = Math::Zero3D;
-    Vector3 rot = Math::Zero3D;
+    Vec3 pos = F32.Zero;
+    Vec3 rot = F32.Zero;
     f32  near_plane = 0.f;
     f32  far_plane = 0.f;
     
@@ -409,5 +413,5 @@ public:
     f32 fov = 0.f;
 
 private:
-    Matrix4 m_matrix;
+    Mat4 m_matrix;
 };

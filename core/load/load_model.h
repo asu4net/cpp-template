@@ -5,10 +5,10 @@ class Model
 public:
     struct Vertex
     {
-        Vector3 pos;
-        Vector2 uv;
-        Vector3 normal;
-        Vector4 color;
+        Vec3 pos;
+        Vec2 uv;
+        Vec3 normal;
+        Vec4 color;
     };
     
     // @Note: Shapes are parts of the model who use different materials.

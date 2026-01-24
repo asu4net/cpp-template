@@ -4,12 +4,12 @@
 // @Region: Vector2
 // =========================================
 
-fn Vector2::dot(const Vector2& a, const Vector2& b) -> f32
+fn Vec2::dot(const Vec2& a, const Vec2& b) -> f32
 {
     return a.x * b.x + a.y * b.y;
 }
 
-fn Vector2::distance(const Vector2& a, const Vector2& b) -> f32
+fn Vec2::distance(const Vec2& a, const Vec2& b) -> f32
 {
     f32 dx = a.x - b.x;
     f32 dy = a.y - b.y;
@@ -17,115 +17,115 @@ fn Vector2::distance(const Vector2& a, const Vector2& b) -> f32
 
 }
 
-fn Vector2::sqrt_distance(const Vector2& a, const Vector2& b) -> f32
+fn Vec2::sqrt_distance(const Vec2& a, const Vec2& b) -> f32
 {
     f32 dx = a.x - b.x;
     f32 dy = a.y - b.y;
     return dx * dx + dy * dy;
 }
 
-fn Vector2::operator==(const Vector2& b) const -> bool
+fn Vec2::operator==(const Vec2& b) const -> bool
 {
-    return (std::abs(x - b.x) <= Math::F32_EPSILON)
-        && (std::abs(y - b.y) <= Math::F32_EPSILON);
+    return (std::abs(x - b.x) <= F32.Epsilon)
+        && (std::abs(y - b.y) <= F32.Epsilon);
 }
 
-fn Vector2::operator!=(const Vector2& b) const -> bool
+fn Vec2::operator!=(const Vec2& b) const -> bool
 {
     return !(operator==(b));
 }
 
-fn Vector2::operator+(const Vector2& b) const -> Vector2
+fn Vec2::operator+(const Vec2& b) const -> Vec2
 {
     return { x + b.x, y + b.y};
 }
 
-fn Vector2::operator-(const Vector2& b) const -> Vector2
+fn Vec2::operator-(const Vec2& b) const -> Vec2
 {
     return { x - b.x, y - b.y };
 }
 
-fn Vector2::operator+=(const Vector2& b) -> Vector2&
+fn Vec2::operator+=(const Vec2& b) -> Vec2&
 {
     x += b.x; y += b.y; return *this;
 }
 
-fn Vector2::operator-=(const Vector2& b) -> Vector2&
+fn Vec2::operator-=(const Vec2& b) -> Vec2&
 {
     x -= b.x; y -= b.y; return *this;
 }
 
-fn Vector2::operator*(const Vector2& b) const -> Vector2
+fn Vec2::operator*(const Vec2& b) const -> Vec2
 {
     return { x * b.x, y * b.y };
 }
 
-fn Vector2::operator/(const Vector2& b) const -> Vector2
+fn Vec2::operator/(const Vec2& b) const -> Vec2
 {
     return { x / b.x, y / b.y };
 }
 
-fn Vector2::operator*=(const Vector2& b) -> Vector2&
+fn Vec2::operator*=(const Vec2& b) -> Vec2&
 {
     x *= b.x; y *= b.y; return *this;
 }
 
-fn Vector2::operator/=(const Vector2& b) -> Vector2&
+fn Vec2::operator/=(const Vec2& b) -> Vec2&
 {
     x /= b.x; y /= b.y; return *this;
 }
 
-fn Vector2::operator*(f32 b) const -> Vector2
+fn Vec2::operator*(f32 b) const -> Vec2
 {
     return { x * b, y * b };
 }
 
-fn Vector2::operator/(f32 b) const -> Vector2
+fn Vec2::operator/(f32 b) const -> Vec2
 {
     return { x / b, y / b };
 }
 
-fn Vector2::operator*=(f32 b) -> Vector2&
+fn Vec2::operator*=(f32 b) -> Vec2&
 {
     x *= b; y *= b; return *this;
 }
 
-fn Vector2::operator/=(f32 b) -> Vector2&
+fn Vec2::operator/=(f32 b) -> Vec2&
 {
     x /= b; y /= b; return *this;
 }
 
-fn Vector2::lenght() const -> f32
+fn Vec2::lenght() const -> f32
 {
     return std::sqrt(x * x + y * y);
 }
 
-fn Vector2::normalized() const -> Vector2
+fn Vec2::normalized() const -> Vec2
 {
     fn len = lenght();
     return { x / len, y / len };
 }
 
-fn Vector2::radians() const -> Vector2
+fn Vec2::radians() const -> Vec2
 {
-    return { Math::to_radians(x), Math::to_radians(y) };
+    return { F32.to_radians(x), F32.to_radians(y) };
 }
 
-fn Vector2::degrees() const -> Vector2
+fn Vec2::degrees() const -> Vec2
 {
-    return { Math::to_degrees(x), Math::to_degrees(y) };
+    return { F32.to_degrees(x), F32.to_degrees(y) };
 }
 
 // =========================================
 // @Region: Vector3
 // =========================================
 
-fn Vector3::dot(const Vector3& a, const Vector3& b) -> f32
+fn Vec3::dot(const Vec3& a, const Vec3& b) -> f32
 {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-fn Vector3::cross(const Vector3& a, const Vector3& b) -> Vector3
+fn Vec3::cross(const Vec3& a, const Vec3& b) -> Vec3
 {
     return 
     {
@@ -135,7 +135,7 @@ fn Vector3::cross(const Vector3& a, const Vector3& b) -> Vector3
     };
 }
 
-fn Vector3::distance(const Vector3& a, const Vector3& b) -> f32
+fn Vec3::distance(const Vec3& a, const Vec3& b) -> f32
 {
     f32 dx = a.x - b.x;
     f32 dy = a.y - b.y;
@@ -143,7 +143,7 @@ fn Vector3::distance(const Vector3& a, const Vector3& b) -> f32
     return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
 
-fn Vector3::sqrt_distance(const Vector3& a, const Vector3& b) -> f32
+fn Vec3::sqrt_distance(const Vec3& a, const Vec3& b) -> f32
 {
     f32 dx = a.x - b.x;
     f32 dy = a.y - b.y;
@@ -151,147 +151,147 @@ fn Vector3::sqrt_distance(const Vector3& a, const Vector3& b) -> f32
     return dx * dx + dy * dy + dz * dz;
 }
 
-fn Vector3::operator==(const Vector3& b) const -> bool
+fn Vec3::operator==(const Vec3& b) const -> bool
 {
-    return (std::abs(x - b.x) <= Math::F32_EPSILON) 
-        && (std::abs(y - b.y) <= Math::F32_EPSILON) 
-        && (std::abs(z - b.z) <= Math::F32_EPSILON);
+    return (std::abs(x - b.x) <= F32.Epsilon) 
+        && (std::abs(y - b.y) <= F32.Epsilon) 
+        && (std::abs(z - b.z) <= F32.Epsilon);
 }
 
-fn Vector3::operator!=(const Vector3& b) const -> bool
+fn Vec3::operator!=(const Vec3& b) const -> bool
 {
     return !(operator==(b));
 }
 
-fn Vector3::operator+(const Vector3& b) const -> Vector3
+fn Vec3::operator+(const Vec3& b) const -> Vec3
 {
     return { x + b.x, y + b.y, z + b.z };
 }
 
-fn Vector3::operator-(const Vector3& b) const -> Vector3
+fn Vec3::operator-(const Vec3& b) const -> Vec3
 {
     return { x - b.x, y - b.y, z - b.z };
 }
 
-fn Vector3::operator+=(const Vector3& b) -> Vector3&
+fn Vec3::operator+=(const Vec3& b) -> Vec3&
 {
     x += b.x; y += b.y; z += b.z; return *this;
 }
 
-fn Vector3::operator-=(const Vector3& b) -> Vector3&
+fn Vec3::operator-=(const Vec3& b) -> Vec3&
 {
     x -= b.x; y -= b.y; z -= b.z; return *this;
 }
 
-fn Vector3::operator*(const Vector3& b) const -> Vector3
+fn Vec3::operator*(const Vec3& b) const -> Vec3
 {
     return { x * b.x, y * b.y, z * b.z };
 }
 
-fn Vector3::operator/(const Vector3& b) const -> Vector3
+fn Vec3::operator/(const Vec3& b) const -> Vec3
 {
     return { x / b.x, y / b.y, z / b.z };
 }
 
-fn Vector3::operator*=(const Vector3& b) -> Vector3&
+fn Vec3::operator*=(const Vec3& b) -> Vec3&
 {
     x *= b.x; y *= b.y; z *= b.z; return *this;
 }
 
-fn Vector3::operator/=(const Vector3& b) -> Vector3&
+fn Vec3::operator/=(const Vec3& b) -> Vec3&
 {
     x /= b.x; y /= b.y; z /= b.z; return *this;
 }
 
-fn Vector3::operator*(f32 b) const -> Vector3
+fn Vec3::operator*(f32 b) const -> Vec3
 {
     return { x * b, y * b, z * b };
 }
 
-fn Vector3::operator/(f32 b) const -> Vector3
+fn Vec3::operator/(f32 b) const -> Vec3
 {
     return { x / b, y / b, z / b };
 }
 
-fn Vector3::operator*=(f32 b) -> Vector3&
+fn Vec3::operator*=(f32 b) -> Vec3&
 {
     x *= b; y *= b; z *= b; return *this;
 }
 
-fn Vector3::operator/=(f32 b) -> Vector3&
+fn Vec3::operator/=(f32 b) -> Vec3&
 {
     x /= b; y /= b; z /= b; return *this;
 }
 
-fn Vector3::lenght() const -> f32
+fn Vec3::lenght() const -> f32
 {
     return std::sqrt(x * x + y * y + z * z);
 }
 
-fn Vector3::normalized() const -> Vector3
+fn Vec3::normalized() const -> Vec3
 {
     fn len = lenght();
     return { x / len, y / len, z / len };
 }
 
-fn Vector3::radians() const -> Vector3
+fn Vec3::radians() const -> Vec3
 {
-    return { Math::to_radians(x), Math::to_radians(y), Math::to_radians(z)};
+    return { F32.to_radians(x), F32.to_radians(y), F32.to_radians(z)};
 }
 
-fn Vector3::degrees() const -> Vector3
+fn Vec3::degrees() const -> Vec3
 {
-    return { Math::to_degrees(x), Math::to_degrees(y), Math::to_degrees(z)};
+    return { F32.to_degrees(x), F32.to_degrees(y), F32.to_degrees(z)};
 }
 
 // =========================================
 // @Region: Vector4
 // =========================================
 
-fn Vector4::dot(const Vector4& a, const Vector4& b) -> f32
+fn Vec4::dot(const Vec4& a, const Vec4& b) -> f32
 {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-fn Vector4::operator==(const Vector4& b) const -> bool
+fn Vec4::operator==(const Vec4& b) const -> bool
 {
-    return (std::abs(x - b.x) <= Math::F32_EPSILON) 
-        && (std::abs(y - b.y) <= Math::F32_EPSILON) 
-        && (std::abs(z - b.z) <= Math::F32_EPSILON)
-        && (std::abs(w - b.w) <= Math::F32_EPSILON);
+    return (std::abs(x - b.x) <= F32.Epsilon) 
+        && (std::abs(y - b.y) <= F32.Epsilon) 
+        && (std::abs(z - b.z) <= F32.Epsilon)
+        && (std::abs(w - b.w) <= F32.Epsilon);
 }
 
-fn Vector4::operator!=(const Vector4& b) const -> bool
+fn Vec4::operator!=(const Vec4& b) const -> bool
 {
     return !(operator==(b));
 }
 
-fn Vector4::operator+(const Vector4& b) const -> Vector4
+fn Vec4::operator+(const Vec4& b) const -> Vec4
 {
     return { x + b.x, y + b.y, z + b.z, w + b.w };
 }
 
-fn Vector4::operator-(const Vector4& b) const -> Vector4
+fn Vec4::operator-(const Vec4& b) const -> Vec4
 {
     return { x - b.x, y - b.y, z - b.z, w - b.w };
 }
 
-fn Vector4::operator+=(const Vector4& b) -> Vector4&
+fn Vec4::operator+=(const Vec4& b) -> Vec4&
 {
     x += b.x; y += b.y; z += b.z; w += b.w;  return *this;
 }
 
-fn Vector4::operator-=(const Vector4& b) -> Vector4&
+fn Vec4::operator-=(const Vec4& b) -> Vec4&
 {
     x -= b.x; y -= b.y; z -= b.z; w -= b.w;  return *this;
 }
 
-fn Vector4::operator*(const Vector4& b) const -> Vector4
+fn Vec4::operator*(const Vec4& b) const -> Vec4
 {
     return { x * b.x, y * b.y, z * b.z, w * b.w };
 }
 
-fn Vector4::operator*(const Matrix4& m) const -> Vector4
+fn Vec4::operator*(const Mat4& m) const -> Vec4
 {
     return {
         x * m._11 + y * m._21 + z * m._31 + w * m._41,
@@ -301,27 +301,27 @@ fn Vector4::operator*(const Matrix4& m) const -> Vector4
     };
 }
 
-fn Vector4::operator/(const Vector4& b) const -> Vector4
+fn Vec4::operator/(const Vec4& b) const -> Vec4
 {
     return { x / b.x, y / b.y, z / b.z, w / b.w };
 }
 
-fn Vector4::operator*=(const Vector4& b) -> Vector4&
+fn Vec4::operator*=(const Vec4& b) -> Vec4&
 {
     x *= b.x; y *= b.y; z *= b.z; w *= b.w; return *this;
 }
 
-fn Vector4::operator/=(const Vector4& b) -> Vector4&
+fn Vec4::operator/=(const Vec4& b) -> Vec4&
 {
     x /= b.x; y /= b.y; z /= b.z; w /= b.w; return *this;
 }
 
-fn Vector4::lenght() const -> f32
+fn Vec4::lenght() const -> f32
 {
     return std::sqrt(x * x + y * y + z * z + w * w);
 }
 
-fn Vector4::normalized() const -> Vector4
+fn Vec4::normalized() const -> Vec4
 {
     fn len = lenght();
     return { x / len, y / len, z / len, w / len };
@@ -331,9 +331,9 @@ fn Vector4::normalized() const -> Vector4
 // @Region: Matrix4
 // =========================================
 
-fn Matrix4::from_quaternion(const Quaternion& q) -> Matrix4
+fn Mat4::from_quaternion(const Quat& q) -> Mat4
 {
-    Quaternion n = q.normalized();
+    Quat n = q.normalized();
     
     f32 xx = n.x * n.x;
     f32 yy = n.y * n.y;
@@ -347,7 +347,7 @@ fn Matrix4::from_quaternion(const Quaternion& q) -> Matrix4
     f32 wy = n.w * n.y;
     f32 wz = n.w * n.z;
     
-    Matrix4 m = Math::IdentityM4;
+    Mat4 m = Mat.Identity4;
 
     m._11 = 1.f - 2.f*(yy + zz);
     m._12 =       2.f*(xy - wz);
@@ -364,43 +364,43 @@ fn Matrix4::from_quaternion(const Quaternion& q) -> Matrix4
     return m;
 }
 
-fn Matrix4::translate(const Vector3& t) -> Matrix4
+fn Mat4::translate(const Vec3& t) -> Mat4
 {
-    Matrix4 m(Math::IdentityM4);
+    Mat4 m(Mat.Identity4);
     m._14 = t.x;
     m._24 = t.y;
     m._34 = t.z;
     return m;
 }
 
-fn Matrix4::scale(const Vector3& s) -> Matrix4
+fn Mat4::scale(const Vec3& s) -> Mat4
 {
-    Matrix4 m(Math::IdentityM4);
+    Mat4 m(Mat.Identity4);
     m._11 = s.x;
     m._22 = s.y;
     m._33 = s.z;
     return m;
 }
 
-fn Matrix4::rotate(const Quaternion& r) -> Matrix4
+fn Mat4::rotate(const Quat& r) -> Mat4
 {
-    Matrix4 m = from_quaternion(r);
+    Mat4 m = from_quaternion(r);
     return m;
 }
 
-fn Matrix4::rotate(const Vector3& r) -> Matrix4
+fn Mat4::rotate(const Vec3& r) -> Mat4
 {
-    Quaternion q = Quaternion::from_euler_angles(r);
+    Quat q = Quat::from_euler_angles(r);
     return rotate(q);
 }
 
-fn Matrix4::transform(const Vector3& t, const Vector3& r, const Vector3& s) -> Matrix4
+fn Mat4::transform(const Vec3& t, const Vec3& r, const Vec3& s) -> Mat4
 {
     // @Note: It applies from right to left: Local scale, local rotation, world translation.
     return translate(t) * rotate(r) * scale(s);
 }
 
-fn Matrix4::transpose(const Matrix4& a) -> Matrix4
+fn Mat4::transpose(const Mat4& a) -> Mat4
 {
     return {
         a._11,a._21,a._31,a._41,
@@ -410,9 +410,9 @@ fn Matrix4::transpose(const Matrix4& a) -> Matrix4
     };
 }
 
-fn Matrix4::inverse(const Matrix4& a) -> Matrix4
+fn Mat4::inverse(const Mat4& a) -> Mat4
 {
-    Matrix4 r(Math::IdentityM4);
+    Mat4 r(Mat.Identity4);
 
     f32 a0 = a._11 * a._22 - a._12 * a._21;
     f32 a1 = a._11 * a._23 - a._13 * a._21;
@@ -460,7 +460,7 @@ fn Matrix4::inverse(const Matrix4& a) -> Matrix4
     return r;
 }
 
-fn Matrix4::determinant(const Matrix4& a) -> f32 
+fn Mat4::determinant(const Mat4& a) -> f32 
 {
     f32 a0 = a._11 * a._22 - a._12 * a._21;
     f32 a1 = a._11 * a._23 - a._13 * a._21;
@@ -479,14 +479,14 @@ fn Matrix4::determinant(const Matrix4& a) -> f32
     return a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
 }
 
-fn Matrix4::view(const Vector3& p, const Quaternion& r) -> Matrix4
+fn Mat4::view(const Vec3& p, const Quat& r) -> Mat4
 {
     return inverse(rotate(r)) * inverse(translate(p));
 }
 
-fn Matrix4::orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Matrix4
+fn Mat4::orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Mat4
 {
-    Matrix4 m(Math::IdentityM4);
+    Mat4 m(Mat.Identity4);
 
     m._11 =  2.0f / (r - l);
     m._22 =  2.0f / (t - b);
@@ -499,16 +499,16 @@ fn Matrix4::orthographic(f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) -> Matrix4
     return m;
 }
 
-fn Matrix4::orthographic(f32 aspect, f32 size, f32 n, f32 f) -> Matrix4
+fn Mat4::orthographic(f32 aspect, f32 size, f32 n, f32 f) -> Mat4
 {
     f32 w = size * aspect;
     f32 h = size;
     return orthographic(-w, w, -h, h, n, f);
 }
 
-fn Matrix4::perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Matrix4
+fn Mat4::perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Mat4
 {
-    Matrix4 m;
+    Mat4 m;
     f32 t = std::tanf(fovy * 0.5f);
 
     m._11 = 1.f / (aspect * t);
@@ -520,19 +520,19 @@ fn Matrix4::perspective(f32 fovy, f32 aspect, f32 n, f32 f) -> Matrix4
     return m;
 }
 
-fn Matrix4::operator==(const Matrix4& b) const -> bool
+fn Mat4::operator==(const Mat4& b) const -> bool
 {
-    return std::memcmp(this, &b, sizeof(Matrix4)) == 0;
+    return std::memcmp(this, &b, sizeof(Mat4)) == 0;
 }
 
-fn Matrix4::operator!=(const Matrix4& b) const -> bool
+fn Mat4::operator!=(const Mat4& b) const -> bool
 {
     return !(*this == b);
 }
 
-fn Matrix4::operator*(const Matrix4& b) const -> Matrix4
+fn Mat4::operator*(const Mat4& b) const -> Mat4
 {
-    Matrix4 r;
+    Mat4 r;
 
     r._11 = _11*b._11 + _12*b._21 + _13*b._31 + _14*b._41;
     r._21 = _21*b._11 + _22*b._21 + _23*b._31 + _24*b._41;
@@ -557,13 +557,13 @@ fn Matrix4::operator*(const Matrix4& b) const -> Matrix4
     return r;
 }
 
-fn Matrix4::operator*=(const Matrix4& b) -> Matrix4&
+fn Mat4::operator*=(const Mat4& b) -> Mat4&
 {
     *this = *this * b;
     return *this;
 }
 
-fn Matrix4::operator*(const Vector4& v) const -> Vector4
+fn Mat4::operator*(const Vec4& v) const -> Vec4
 {
     return {
         _11*v.x + _12*v.y + _13*v.z + _14*v.w,
@@ -573,7 +573,7 @@ fn Matrix4::operator*(const Vector4& v) const -> Vector4
     };
 }
 
-fn Matrix4::data() -> f32*
+fn Mat4::data() -> f32*
 {
     return &_11;
 }
@@ -582,7 +582,7 @@ fn Matrix4::data() -> f32*
 // @Region: Quaternion
 // =========================================
 
-fn Quaternion::from_axis_angle(const Vector3& axis, f32 rad) -> Quaternion
+fn Quat::from_axis_angle(const Vec3& axis, f32 rad) -> Quat
 {
     f32 half = rad * 0.5f;
     f32 s = std::sinf(half);
@@ -595,28 +595,28 @@ fn Quaternion::from_axis_angle(const Vector3& axis, f32 rad) -> Quaternion
     };
 }
 
-fn Quaternion::from_euler_angles(const Vector3& r) -> Quaternion
+fn Quat::from_euler_angles(const Vec3& r) -> Quat
 {
-    Quaternion qx = from_axis_angle(Math::Right3D, r.x);
-    Quaternion qy = from_axis_angle(Math::Up3D, r.y);
-    Quaternion qz = from_axis_angle(Math::Front3D, r.z);
+    Quat qx = from_axis_angle(F32.Right, r.x);
+    Quat qy = from_axis_angle(F32.Up, r.y);
+    Quat qz = from_axis_angle(F32.Front, r.z);
     return qz * qy * qx;
 }
 
-fn Quaternion::operator==(const Quaternion& b) const -> bool
+fn Quat::operator==(const Quat& b) const -> bool
 {
-    return (std::abs(x - b.x) <= Math::F32_EPSILON) 
-        && (std::abs(y - b.y) <= Math::F32_EPSILON) 
-        && (std::abs(z - b.z) <= Math::F32_EPSILON)
-        && (std::abs(w - b.w) <= Math::F32_EPSILON);
+    return (std::abs(x - b.x) <= F32.Epsilon) 
+        && (std::abs(y - b.y) <= F32.Epsilon) 
+        && (std::abs(z - b.z) <= F32.Epsilon)
+        && (std::abs(w - b.w) <= F32.Epsilon);
 }
 
-fn Quaternion::operator!=(const Quaternion& b) const -> bool
+fn Quat::operator!=(const Quat& b) const -> bool
 {
     return !(operator==(b));
 }
 
-fn Quaternion::operator*(const Quaternion& b) const -> Quaternion
+fn Quat::operator*(const Quat& b) const -> Quat
 {
     return {
         w*b.x + x*b.w + y*b.z - z*b.y,
@@ -626,17 +626,17 @@ fn Quaternion::operator*(const Quaternion& b) const -> Quaternion
     };
 }
 
-fn Quaternion::operator*=(const Quaternion& b) -> Quaternion&
+fn Quat::operator*=(const Quat& b) -> Quat&
 {
     return *this = *this * b;
 }
 
-fn Quaternion::lenght() const -> f32
+fn Quat::lenght() const -> f32
 {
     return std::sqrt(x * x + y * y + z * z + w * w);
 }
 
-fn Quaternion::normalized() const -> Quaternion
+fn Quat::normalized() const -> Quat
 {
     fn len = lenght();
     return { x / len, y / len, z / len, w / len };
@@ -662,38 +662,38 @@ fn Free_Look::rotate(f32 dx, f32 dy) -> void
     if (m_camera->rot.x < -CLAMP_ANGLE) m_camera->rot.x = -CLAMP_ANGLE;
 }
 
-fn Free_Look::forward() const -> Vector3
+fn Free_Look::forward() const -> Vec3
 {
-    f32 pitch = Math::to_radians(m_camera->rot.x);
-    f32 yaw = Math::to_radians(m_camera->rot.y);
+    f32 pitch = F32.to_radians(m_camera->rot.x);
+    f32 yaw = F32.to_radians(m_camera->rot.y);
 
-    return Vector3{
+    return Vec3{
         -cos(pitch) * sin(yaw),
          sin(pitch),
         -cos(pitch) * cos(yaw)
     }.normalized();
 }
 
-fn Free_Look::right() const -> Vector3
+fn Free_Look::right() const -> Vec3
 {
-    return Vector3::cross(forward(), Vector3 { 0,1,0 }).normalized();
+    return Vec3::cross(forward(), Vec3 { 0,1,0 }).normalized();
 }
 
 fn Camera::update_matrix(i32 viewport_x, i32 viewport_y) -> void
 {
-    Matrix4 p;
+    Mat4 p;
     const f32 aspect = (f32)viewport_x / (f32)viewport_y;
 
     switch (mode)
     {
     case Camera::Perspective:
-        p = Matrix4::perspective(Math::to_radians(fov), aspect, near_plane, far_plane);
+        p = Mat4::perspective(F32.to_radians(fov), aspect, near_plane, far_plane);
         break;
     case Camera::Orthographic:
-        p = Matrix4::orthographic(aspect, size, near_plane, far_plane);
+        p = Mat4::orthographic(aspect, size, near_plane, far_plane);
         break;
     }
     
-    Matrix4 v = Matrix4::view(pos, Quaternion::from_euler_angles(rot.radians()));
-    m_matrix = Matrix4::transpose(p * v);
+    Mat4 v = Mat4::view(pos, Quat::from_euler_angles(rot.radians()));
+    m_matrix = Mat4::transpose(p * v);
 }

@@ -2,10 +2,10 @@
 #pragma once
 
 struct Slot_Handle {
-    u32 index = Limits::U32_Max;
+    u32 index = U32.Max;
     u32 generation = 0;
 
-    fn valid() const -> bool  { return index < Limits::U32_Max; }
+    fn valid() const -> bool  { return index < U32.Max; }
 };
 
 template<typename T>

@@ -15,7 +15,7 @@ struct Window_Desc
     i32 width  = 1280;
     i32 height = 720;
     Flags flags = ALL;
-    Vector3 bg_color = Color::Chill_Green;
+    Vec3 bg_color = Color.Chill_Green;
 };
 
 fn os_window_init(Window_Desc ds) -> bool;

@@ -6,7 +6,7 @@ fn main() -> i32 {
     dbg_log("Hellope!");
     app_init();
     
-    glClearColor(Color::Corn_Flower_Blue);
+    glClearColor(Color.Corn_Flower_Blue);
 
     while (app_running()) {
         

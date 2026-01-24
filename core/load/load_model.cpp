@@ -93,7 +93,7 @@ Model::Model(std::string_view filename, bool normals_as_colors)
             }
             else
             {
-               v.color = Color::White;
+               v.color = Color.White;
             }
             
             m_indices.emplace_back(static_cast<u32>(m_indices.size()));
