@@ -5,18 +5,16 @@ fn main(i32 argc, cstring* argv) -> i32 {
     while (app_running()) {
         
         glClear(GL_COLOR_BUFFER_BIT);
-
-        #if GAME_DEBUG
-        imgui_frame_init();
-        {
+        
+        internal fn draw_imgui = [] {
             ImGui::SetNextWindowSize({ 300, 270 }, ImGuiCond_FirstUseEver);
             ImGui::Begin("Debug Screen");
             ImGui::Text("FPS: %.2f", time_av_fps());
             ImGui::End();
-        }
-        imgui_frame_done();
-        #endif
-        
+        };
+
+        imgui_frame(draw_imgui);
+
         os_swap_buffers();
     }
     
