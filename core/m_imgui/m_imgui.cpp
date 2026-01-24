@@ -58,7 +58,7 @@ fn imgui_is_init() -> bool {
     return g_imgui_is_init;
 }
 
-fn imgui_frame(Draw_ImGui_Fn draw) -> void {
+fn imgui_draw_frame(Draw_ImGui_Fn draw) -> void {
 
     if (!g_imgui_is_init) {
         return;

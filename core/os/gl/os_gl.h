@@ -154,3 +154,7 @@ inline fn glCreateProgramFromSource(std::string_view source) -> GLuint {
     
     return prog;
 }
+
+inline fn glClearColor(const Vector4& color) -> void {
+    glClearColor(color.x, color.y, color.z, color.w);
+}

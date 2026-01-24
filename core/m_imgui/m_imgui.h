@@ -9,7 +9,7 @@ fn imgui_is_init() -> bool;
 
 using Draw_ImGui_Fn = void(*)();
 
-fn imgui_frame(Draw_ImGui_Fn draw) -> void;
+fn imgui_draw_frame(Draw_ImGui_Fn draw) -> void;
 
 // @Hack: We have to do this before ImGui::DestroyContext.
 // Why? Because when we reach DestoyContext ImGui have already zeroed the window positions.
