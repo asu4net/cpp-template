@@ -3,31 +3,26 @@
 fn main(i32 argc, cstring* argv) -> i32 {
     dbg_log("Hellope!");
     app_init();
-
-    bool quit = false;
-
-    while (!quit) {
-        app_poll_events();
+    
+    while (app_running()) {
         
-        for (const auto& event: app_events_this_frame()) {
-            if (event.type == Input_Event::Quit) {
-                quit = true;
-                app_imgui_force_save_ini();
-            }
-            if (event.key_code == Key_Code::Escape) {
-                quit = true;
-            }
-        }
-
         glClear(GL_COLOR_BUFFER_BIT);
-        app_imgui_begin();
-        ImGui::Begin("Hi");
-        ImGui::End();
-        app_imgui_end();
+        // Draw frame.
 
+        #if GAME_DEBUG
+        imgui_frame_init();
+        {
+            ImGui::SetNextWindowSize({ 300, 270 }, ImGuiCond_FirstUseEver);
+            ImGui::Begin("Debug Screen");
+            ImGui::Text("FPS: %.2f", app_av_frame_rate());
+            ImGui::End();
+        }
+        imgui_frame_done();
+        #endif
+        
         app_swap_buffers();
     }
-
+    
     app_done();
     return 0;
 }

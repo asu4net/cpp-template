@@ -132,6 +132,8 @@ function prj_app(name)
         entrypoint "mainCRTStartup"
     filter "configurations:debug"
         kind "ConsoleApp"
+    filter "configurations:release"
+        kind "ConsoleApp"
     filter {}
 end
 
@@ -139,9 +141,9 @@ function prj_game(name)
     prj_app(name)
 
     --- @Note: PCH config
-    pchheader "pch.h"
-    pchsource (name .. "/pch.cpp")
-    forceincludes "pch.h"
+    pchheader "game_pch.h"
+    pchsource (name .. "/code" .. "/game_pch.cpp")
+    forceincludes "game_pch.h"
     ---
     config_base()
 
@@ -153,8 +155,6 @@ function prj_game(name)
     }
 
     files { 
-        loc .. "/pch.h", 
-        loc .. "/pch.cpp",
         loc .. "/code/**.h", 
         loc .. "/code/**.cpp", 
         loc .. "/assets/**.glsl", 

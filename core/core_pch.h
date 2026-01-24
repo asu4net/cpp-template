@@ -1,7 +1,7 @@
 
 #pragma once
 
-// @Note: STD dependencies... iugh. ￣へ￣
+// @Note: STD dependencies... iugh.
 #include <memory>
 #include <string>
 #include <random>

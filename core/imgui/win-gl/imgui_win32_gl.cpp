@@ -1,4 +1,4 @@
-#include "app_imgui_win32_gl.h"
+#include "imgui_win32_gl.h"
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_opengl3.h"
@@ -18,7 +18,7 @@ static void hook_swap_buffers(ImGuiViewport* viewport, void*);
 
 // ------------------------------------------------------
 
-fn app_imgui_init_win32_gl(HWND hwnd, HDC hdc, HGLRC hglrc) -> void {
+fn imgui_init_win32_gl(HWND hwnd, HDC hdc, HGLRC hglrc) -> void {
     g_imgui.hwnd = hwnd;
     g_imgui.main_hdc = hdc;
     g_imgui.main_hglrc = hglrc;
@@ -66,19 +66,19 @@ fn app_imgui_init_win32_gl(HWND hwnd, HDC hdc, HGLRC hglrc) -> void {
     }
 }
 
-fn app_imgui_done_win32_gl() -> void {    
+fn imgui_done_win32_gl() -> void {    
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
 }
 
-fn app_imgui_begin_win32_gl() -> void {
+fn imgui_frame_init_win32_gl() -> void {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 }
 
-fn app_imgui_end_win32_gl() -> void {
+fn imgui_frame_done_win32_gl() -> void {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
