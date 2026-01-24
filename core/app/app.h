@@ -4,6 +4,7 @@
 #include "os_input.h"
 #include "audio.h"
 #include "imgui_state.h"
+#include "time_state.h"
 
 // @Note: This file is just a C-style easy wrapper for the common stuff. You don't need to use it.
 
@@ -35,10 +36,3 @@ fn app_swap_buffers(bool vsync = true) -> void;
 fn app_events_this_frame() -> const std::vector<Input_Event>&;
 fn app_key_down(u32 key_code) -> bool;
 fn app_set_cursor_mode(Cursor_Mode mode) -> void;
-
-// *** Time ***
-
-fn app_frame_time() -> f32;
-fn app_frame_rate() -> f32;
-fn app_av_frame_rate() -> f32;
-fn app_set_time_scale(f32 scale) -> void;

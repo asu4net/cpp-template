@@ -14,7 +14,7 @@ fn main(i32 argc, cstring* argv) -> i32 {
         {
             ImGui::SetNextWindowSize({ 300, 270 }, ImGuiCond_FirstUseEver);
             ImGui::Begin("Debug Screen");
-            ImGui::Text("FPS: %.2f", app_av_frame_rate());
+            ImGui::Text("FPS: %.2f", time_av_fps());
             ImGui::End();
         }
         imgui_frame_done();
