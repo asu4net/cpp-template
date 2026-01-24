@@ -13,10 +13,11 @@ fn main() -> i32 {
         glClear(GL_COLOR_BUFFER_BIT);
         
         internal fn imgui_frame = [] {
-            ImGui::SetNextWindowSize({ 300, 270 }, ImGuiCond_FirstUseEver);
-            ImGui::Begin("Debug Screen");
-            ImGui::Text("FPS: %.2f", time_av_fps());
-            ImGui::End();
+            using namespace ImGui;
+            SetNextWindowSize({ 300, 270 }, ImGuiCond_FirstUseEver);
+            Begin("Debug Screen");
+            Text("FPS: %.2f", time_av_fps());
+            End();
         };
         
         imgui_draw_frame(imgui_frame);
