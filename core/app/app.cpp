@@ -86,7 +86,7 @@ fn app_done() -> void {
 }
 
 fn app_running() -> bool {
-    // Process frame events.
+
     internal fn quit = []() {
         g_app.quit = true;
         if (imgui_is_init()) {
