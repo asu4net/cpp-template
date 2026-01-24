@@ -1,3 +1,7 @@
+#include "app.h"
+#include "imgui.h"
+#include "os_gl.h"
+
 fn main(i32 argc, cstring* argv) -> i32 {
     dbg_log("Hellope!");
     app_init();

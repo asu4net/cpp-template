@@ -1,4 +1,4 @@
-#include "time_state.h"
+#include "m_time.h"
 #include "os_core.h"
 
 internal constexpr u32 FPS_SAMPLES = 30u;

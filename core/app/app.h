@@ -2,9 +2,9 @@
 #pragma once
 #include "os_window.h"
 #include "os_input.h"
+#include "m_time.h"
+#include "m_imgui.h"
 #include "audio.h"
-#include "imgui_state.h"
-#include "time_state.h"
 
 // @Note: This file is just a C-style easy wrapper for the common stuff. You don't need to use it.
 
