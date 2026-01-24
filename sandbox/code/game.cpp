@@ -1,8 +1,8 @@
 #include "app.h"
-#include "imgui.h"
+#include "m_imgui.h"
 #include "os_gl.h"
 
-fn main(i32 argc, cstring* argv) -> i32 {
+fn main() -> i32 {
     dbg_log("Hellope!");
     app_init();
     
@@ -18,10 +18,8 @@ fn main(i32 argc, cstring* argv) -> i32 {
         };
 
         imgui_frame(draw_imgui);
-
         os_swap_buffers();
     }
     
     app_done();
-    return 0;
 }

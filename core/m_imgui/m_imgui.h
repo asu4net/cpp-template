@@ -1,4 +1,5 @@
 #pragma once
+#include "imgui.h"
 
 fn imgui_init(const class IWindow& window) -> void;
 fn imgui_done() -> void;
