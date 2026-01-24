@@ -52,17 +52,21 @@ struct App {
 } g_app;
 
 fn app_init(App_Desc ds) -> bool {
+
     if (g_app.is_init) {
         app_done();
     }
+    
     os_set_working_dir(ds.working_dir);
+    
     g_app.input = IInput::create(ds.input);
     g_app.window = IWindow::create(ds.window);
+    
     if (ds.init_imgui) {
         imgui_init(*g_app.window);
     }
+    
     audio_init();
-    g_app.is_init = g_app.window && g_app.input;
 
 #if defined(GAME_DEBUG) && defined(GAME_GL)
     glEnable(GL_DEBUG_OUTPUT);
@@ -72,17 +76,21 @@ fn app_init(App_Desc ds) -> bool {
 
     //glBindTexture(GL_TEXTURE_2D, 999999); // @Note: Uncomment to check if the errors work.
 
+    g_app.is_init = true;
     return g_app.is_init;
 }
 
 fn app_done() -> void {
-    if (g_app.is_init) {
-        audio_done();
-        imgui_done();
-        g_app.window.reset();
-        g_app.input.reset();
-        g_app = {};
+
+    if (!g_app.is_init) {
+        return;
     }
+
+    audio_done();
+    imgui_done();
+    g_app.window.reset();
+    g_app.input.reset();
+    g_app = {};
 }
 
 fn app_running() -> bool {
